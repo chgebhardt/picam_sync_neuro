@@ -45,7 +45,7 @@ def create_experiment_folder(experimenter, exp_num, camera_num):
     return (exp_path, new_expID)
 
 
-def write_metadata(exp_path, configuration_parameters):
+def write_metadata(exp_path, new_experimentID, configuration_parameters):
     """
     Create a metadata text file for experiment information.
 
@@ -74,7 +74,7 @@ def write_metadata(exp_path, configuration_parameters):
         'pup_age_days': configuration_parameters['pup_age_days'],
         'litter': configuration_parameters['litter'],
         'exp_num': configuration_parameters['exp_num'],
-        'camera_num': configuration_parameters['camera_num'],
+        'camera_num': configuration_parameters['camera_num'][0],
         'view': configuration_parameters['view'],
         'illumination': configuration_parameters['illumination'],
         'behavior_paradigm': configuration_parameters['behavior_paradigm'],

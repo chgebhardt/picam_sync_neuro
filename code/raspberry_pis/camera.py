@@ -60,7 +60,7 @@ class TimeStamp(object):
 
 
 
-def RecordVideo(configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
+def RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
 
     with picamera.PiCamera() as camera: 
       
@@ -76,7 +76,7 @@ def RecordVideo(configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, C
         camera.annotate_background = picamera.Color('black')
         camera.annotate_text       = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
         
-        videoTime = strftime('%H%M%S')
+        videoTime = time.strftime('%H%M%S')
         
         # create file names for videos
         videoName  = new_experimentID + '_' + videoTime + ".h264"

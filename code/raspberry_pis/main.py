@@ -26,7 +26,7 @@ if __name__ == '__main__':
     beh_paradigm_mapping     = {'pr': 'pup_retrieval', 'rm': 'retrieval_motivation'}
 
     # Use the mappings to transform the respective metadata values
-    configuration_parameters['camera_num']        = camera_num[0]
+    configuration_parameters['camera_num']        = camera_num
     configuration_parameters['script_name']       = script_name
     configuration_parameters['view']              = camera_num_mapping.get(camera_num[0], camera_num[0])
     configuration_parameters['behavior_paradigm'] = beh_paradigm_mapping.get(beh_paradigm_id, beh_paradigm_id)
@@ -62,8 +62,8 @@ if __name__ == '__main__':
     # copy python script to experiment folder
     shutil.copy(__file__, str(experiment_path) + os.sep + os.path.basename(__file__)) 
     
-    # LOads and writes metadata file to the experiment_path
-    experiment.write_metadata(experiment_path, configuration_parameters)
+    # Writes metadata file to the experiment_path
+    experiment.write_metadata(experiment_path, new_experimentID, configuration_parameters)
     
     # serial port initialization (uses camera_num as list), send byte from rpi2 to rpi1 and acquistion start
     ser = serial_comm.Serializer(camera_num)

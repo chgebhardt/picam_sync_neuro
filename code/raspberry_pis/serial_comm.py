@@ -102,14 +102,14 @@ def send_byte_run_acquistions(serial, configuration_parameters, FPS, RESOLUTION_
         if serial_msg:
             utils.print_timestamp('\nRecording started at')
             
-            camera.RecordVideo(configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+            camera.RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
             
             utils.print_timestamp('Recording finished at')
     
     elif camera_num == ['2']:
-        ser.send(1)
+        serial.send(1)
         utils.print_timestamp('\nRecording started at')
         
-        camera.RecordVideo(configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+        camera.RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
         
         utils.print_timestamp('Recording finished at')

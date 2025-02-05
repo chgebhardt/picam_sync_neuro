@@ -60,8 +60,8 @@ class TimeStamp(object):
 
 
 
-def RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
-    
+def RecordVideo(configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
+
     with picamera.PiCamera() as camera: 
       
         camera.resolution  = RESOLUTION_PX
@@ -69,7 +69,7 @@ def RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
         camera.sensor_mode = CAMERA_MODE
         
         # preview while recording?
-        if camera_preview and camera_num == ['2']:
+        if configuration_parameters['camera_preview']:
            camera.start_preview(fullscreen = False, window = (400, 70, 640, 320))  
         
         # timestamp settings
@@ -82,7 +82,7 @@ def RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
         videoName  = new_experimentID + '_' + videoTime + ".h264"
         path_video = os.path.join(experiment_path, videoName)
         
-        if 'IR' in illumination:  
+        if 'IR' in configuration_parameters['illumination']:  
             
             camera.iso           = 300
             camera.shutter_speed = SHUTTERSPEED_US # in microseconds
@@ -99,7 +99,7 @@ def RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
             camera.contrast      = 80               # [def  0, -100 100]
             
     
-        elif 'RL' in illumination:
+        elif 'RL' in configuration_parameters['illumination']:
             camera.awb_mode = 'auto'
         
         output = TimeStamp(camera, path_video, os.path.join(experiment_path, new_experimentID + '_clock.csv'))
@@ -107,7 +107,7 @@ def RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
         camera.start_recording(output, format = 'h264', bitrate = BITRATE)  
         
         start = dt.datetime.now()
-        while (dt.datetime.now() - start).seconds < video_duration_mins * 60:
+        while (dt.datetime.now() - start).seconds < configuration_parameters['video_duration_mins'] * 60:
             camera.annotate_text = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')                                     
             camera.annotate_text_size = 15
     

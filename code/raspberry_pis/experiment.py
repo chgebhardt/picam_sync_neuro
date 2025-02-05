@@ -45,7 +45,7 @@ def create_experiment_folder(experimenter, exp_num, camera_num):
     return (exp_path, new_expID)
 
 
-def load_write_metadata(exp_path, script_name):
+def write_metadata(exp_path, configuration_parameters):
     """
     Create a metadata text file for experiment information.
 
@@ -63,61 +63,30 @@ def load_write_metadata(exp_path, script_name):
     Example:
     write_metadata("/home/pi/experiments/experiment_01")
     """
-
-    #==========================================================================
-    # Load Experiment Metadata from config.yaml file
-    #==========================================================================
-
-    # load config yaml file
-    configuration_parameters = config.parse_and_load_config()
-    
-    # access the metadata parameters
-    experimenter             = configuration_parameters['experimenter']
-    animalID                 = configuration_parameters['animalID']
-    speciesID                = configuration_parameters['speciesID']
-    sex                      = configuration_parameters['sex']                 
-    repro_state              = configuration_parameters['repro_state']
-    pup_age_days             = configuration_parameters['pup_age_days']
-    litter                   = configuration_parameters['litter']  
-    exp_num                  = configuration_parameters['exp_num']
-    beh_paradigm_id          = configuration_parameters['beh_paradigm_id']
-    photometry               = configuration_parameters['photometry']
-    viral_injection_date     = configuration_parameters['viral_injection_date']
-    virus_id                 = configuration_parameters['virus_id']
-    virus_target             = configuration_parameters['virus_target']
-
-
-    # Define mappings for camera_num and beh_paradigm_id
-    camera_num_mapping       = {'1': 'front', '2': 'top'}
-    beh_paradigm_mapping     = {'pr': 'pup_retrieval', 'rm': 'retrieval_motivation'}
-
-    # Use the mappings to transform the respective metadata values
-    view                     = camera_num_mapping.get(camera_num[0], camera_num[0])
-    behavior_paradigm        = beh_paradigm_mapping.get(beh_paradigm_id, beh_paradigm_id)
     
     metadata = {
-        'script_used': script_name,
-        'experimenter': experimenter,
-        'animalID': animalID,
-        'speciesID': speciesID,
-        'sex': sex,
-        'repro_state': repro_state,
-        'pup_age_days': pup_age_days,
-        'litter': litter,
-        'exp_num': exp_num,
-        'camera_num': camera_num[0],
-        'view': view,
-        'illumination': illumination,
-        'behavior_paradigm': behavior_paradigm,
-        'photometry': photometry,
-        'viral_injection_date': viral_injection_date,
-        'virus_id': virus_id,
-        'virus_target': virus_target,
-        'video_duration_mins': video_duration_mins,
-        'fps': FPS,
-        'resolution_px': RESOLUTION_PX,
-        'shutterspeed_us': SHUTTERSPEED_US,
-        'bitrate': BITRATE
+        'script_used': configuration_parameters['script_name'],
+        'experimenter': configuration_parameters['experimenter'],
+        'animalID': configuration_parameters['animalID'],
+        'speciesID': configuration_parameters['speciesID'],
+        'sex': configuration_parameters['sex'],
+        'repro_state': configuration_parameters['repro_state'],
+        'pup_age_days': configuration_parameters['pup_age_days'],
+        'litter': configuration_parameters['litter'],
+        'exp_num': configuration_parameters['exp_num'],
+        'camera_num': configuration_parameters['camera_num'],
+        'view': configuration_parameters['view'],
+        'illumination': configuration_parameters['illumination'],
+        'behavior_paradigm': configuration_parameters['behavior_paradigm'],
+        'photometry': configuration_parameters['photometry'],
+        'viral_injection_date': configuration_parameters['viral_injection_date'],
+        'virus_id': configuration_parameters['virus_id'],
+        'virus_target': configuration_parameters['virus_target'],
+        'video_duration_mins': configuration_parameters['video_duration_mins'],
+        'fps': configuration_parameters['FPS'],
+        'resolution_px': configuration_parameters['RESOLUTION_PX'],
+        'shutterspeed_us': configuration_parameters['SHUTTERSPEED_US'],
+        'bitrate': configuration_parameters['BITRATE']
     }
 
     meta_fname      = f"{new_experimentID}.txt"

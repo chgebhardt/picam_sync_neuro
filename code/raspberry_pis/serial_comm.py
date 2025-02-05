@@ -67,7 +67,8 @@ class Serializer:
             print("Serial port is not open. Cannot receive data.")  
 
 
-def send_byte_run_acquistions(serial, camera_num, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
+def send_byte_run_acquistions(serial, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
+ 
     """
     Send a signal byte and start video acquisitions for the specified camera.
     
@@ -89,6 +90,8 @@ def send_byte_run_acquistions(serial, camera_num, FPS, RESOLUTION_PX, SHUTTERSPE
     send_byte_run_acquisitions(serial_connection, ['2'])
     """
 
+    camera_num = configuration_parameters['camera_num']
+
     if camera_num == ['1']:
         serial_msg = bytearray()
         print_timestamp('\nWaiting for message from rpi2...')
@@ -99,7 +102,7 @@ def send_byte_run_acquistions(serial, camera_num, FPS, RESOLUTION_PX, SHUTTERSPE
         if serial_msg:
             utils.print_timestamp('\nRecording started at')
             
-            camera.RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+            camera.RecordVideo(configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
             
             utils.print_timestamp('Recording finished at')
     
@@ -107,6 +110,6 @@ def send_byte_run_acquistions(serial, camera_num, FPS, RESOLUTION_PX, SHUTTERSPE
         ser.send(1)
         utils.print_timestamp('\nRecording started at')
         
-        camera.RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+        camera.RecordVideo(configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
         
         utils.print_timestamp('Recording finished at')

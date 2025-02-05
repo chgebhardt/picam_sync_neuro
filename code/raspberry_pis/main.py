@@ -4,11 +4,25 @@ from code import config, logging, experiment, camera, serial_comm, utils
 
 
 if __name__ == '__main__':
+    
+    # get hostname / camera_number / script name (important because different parts of the script are run on different pis) 
+    host        = socket.gethostname()     # extract hostname
+    camera_num  = re.findall(r'\d+', host) # extract list of numberstr from string
+    script_path = sys.argv[0]
+    script_name = os.path.basename(script_path)
+
+    #==========================================================================
+    # Load Experiment Metadata from config.yaml file
+    #==========================================================================
+
+    # load config yaml file
+    configuration_parameters = parse_and_load_config()
+    
     # Load configuration parameters from config.yaml
     config_data = config.parse_and_load_config()
 
     # Set up logging
-    log_file = logging.create_log_file('/path/to/log_file.log')
+    log_file = create_log_file('/home/pi/Desktop/logs/pic{}_log.out'.format(camera_num[0]))
 
     # Check disk usage
     experiment.disk_usage()

@@ -2,7 +2,7 @@ import shutil
 import os
 import sys
 import re, socket
-from code import config, logging, experiment, serial_comm, utils
+import config, logging, experiment, serial_comm, utils
 
 
 if __name__ == '__main__':
@@ -18,7 +18,6 @@ if __name__ == '__main__':
     #==========================================================================
 
     # load config yaml file
-    configuration_parameters = parse_and_load_config()
     
     # access the metadata parameters
     experimenter             = configuration_parameters['experimenter']
@@ -86,4 +85,4 @@ if __name__ == '__main__':
     ser.close()
 
     # Close the log file
-    close_log_file(log_file)
+    logging.close_log_file(log_file)

@@ -508,7 +508,9 @@ if __name__ == '__main__':
     # Acquisition parameters
     #==========================================================================
 
-    # set hard-coded recording parameters
+    # set hard-coded recording parameters 
+    # (easier hardcoding because some of the parameter combinations are hard-coded in the picams) 
+    
     FPS                = 40          
     RESOLUTION_PX      = (1280,720)
     SHUTTERSPEED_US    = 3000            # shutter speed in microseconds

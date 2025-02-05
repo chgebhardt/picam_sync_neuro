@@ -18,6 +18,5 @@ def print_timestamp(message):
     """
     Print a timestamp along with a custom message.
     """
-    import datetime as dt
     timestamp = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
     print(f'{message} {timestamp}')

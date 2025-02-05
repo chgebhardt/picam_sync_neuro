@@ -44,83 +44,53 @@ def create_experiment_folder(experimenter, exp_num, camera_num):
     return (exp_path, new_expID)
 
 
-# def write_metadata(exp_path):
-#     """
-#     Create a metadata text file for experiment information.
-
-#     This function generates a text file containing metadata related to an
-#     experiment, including details such as the experimenter, animal ID, species,
-#     camera settings, and more. The text file is named after the experiment's
-#     unique identifier and is stored in the specified experiment path.
-
-#     Parameters:
-#     exp_path (str): The path where the metadata text file will be saved.
-
-#     Returns:
-#     None
-
-#     Example:
-#     write_metadata("/home/pi/experiments/experiment_01")
-#     """
-    
-#     metadata = {
-#         'script_used': script_name,
-#         'experimenter': experimenter,
-#         'animalID': animalID,
-#         'speciesID': speciesID,
-#         'sex': sex,
-#         'repro_state': repro_state,
-#         'pup_age_days': pup_age_days,
-#         'litter': litter,
-#         'exp_num': exp_num,
-#         'camera_num': camera_num[0],
-#         'view': view,
-#         'illumination': illumination,
-#         'behavior_paradigm': behavior_paradigm,
-#         'photometry': photometry,
-#         'viral_injection_date': viral_injection_date,
-#         'virus_id': virus_id,
-#         'virus_target': virus_target,
-#         'video_duration_mins': video_duration_mins,
-#         'fps': FPS,
-#         'resolution_px': RESOLUTION_PX,
-#         'shutterspeed_us': SHUTTERSPEED_US,
-#         'bitrate': BITRATE
-#     }
-
-#     meta_fname      = f"{new_experimentID}.txt"
-#     metadata_lines  = [f"{new_experimentID}"]  # Include the expID identifier without key
-#     metadata_lines += [f"{key}:{value}" for key, value in metadata.items()]
-
-#     metadata_text = "\n".join(metadata_lines)
-
-#     try:
-#         with open(exp_path / meta_fname, "w") as file:
-#             file.write(metadata_text)
-#         print('\nTxt-file for Metadata created!')
-
-#     except Exception as e:
-#         print(f'\nCould not save txt-file for Metadata: {str(e)}')
-
-
-def write_metadata(exp_path, config):
+def write_metadata(exp_path):
     """
     Create a metadata text file for experiment information.
 
     This function generates a text file containing metadata related to an
-    experiment, and it dynamically reads the content from the provided config dictionary.
-    The text file is named after the experiment's unique identifier and is stored in the specified experiment path.
+    experiment, including details such as the experimenter, animal ID, species,
+    camera settings, and more. The text file is named after the experiment's
+    unique identifier and is stored in the specified experiment path.
 
     Parameters:
     exp_path (str): The path where the metadata text file will be saved.
-    config (dict): The dictionary containing metadata parameters.
 
     Returns:
     None
+
+    Example:
+    write_metadata("/home/pi/experiments/experiment_01")
     """
-    meta_fname      = f"{config['experiment_id']}.txt"
-    metadata_lines  = [f"{config['experiment_id']}"]  # Include the expID identifier
-    metadata_lines += [f"{key}:{value}" for key, value in config.items() if key != 'experiment_id']
+    
+    metadata = {
+        'script_used': script_name,
+        'experimenter': experimenter,
+        'animalID': animalID,
+        'speciesID': speciesID,
+        'sex': sex,
+        'repro_state': repro_state,
+        'pup_age_days': pup_age_days,
+        'litter': litter,
+        'exp_num': exp_num,
+        'camera_num': camera_num[0],
+        'view': view,
+        'illumination': illumination,
+        'behavior_paradigm': behavior_paradigm,
+        'photometry': photometry,
+        'viral_injection_date': viral_injection_date,
+        'virus_id': virus_id,
+        'virus_target': virus_target,
+        'video_duration_mins': video_duration_mins,
+        'fps': FPS,
+        'resolution_px': RESOLUTION_PX,
+        'shutterspeed_us': SHUTTERSPEED_US,
+        'bitrate': BITRATE
+    }
+
+    meta_fname      = f"{new_experimentID}.txt"
+    metadata_lines  = [f"{new_experimentID}"]  # Include the expID identifier without key
+    metadata_lines += [f"{key}:{value}" for key, value in metadata.items()]
 
     metadata_text = "\n".join(metadata_lines)
 
@@ -128,5 +98,35 @@ def write_metadata(exp_path, config):
         with open(exp_path / meta_fname, "w") as file:
             file.write(metadata_text)
         print('\nTxt-file for Metadata created!')
+
     except Exception as e:
         print(f'\nCould not save txt-file for Metadata: {str(e)}')
+
+
+# def write_metadata(exp_path, config):
+#     """
+#     Create a metadata text file for experiment information.
+
+#     This function generates a text file containing metadata related to an
+#     experiment, and it dynamically reads the content from the provided config dictionary.
+#     The text file is named after the experiment's unique identifier and is stored in the specified experiment path.
+
+#     Parameters:
+#     exp_path (str): The path where the metadata text file will be saved.
+#     config (dict): The dictionary containing metadata parameters.
+
+#     Returns:
+#     None
+#     """
+#     meta_fname      = f"{config['experiment_id']}.txt"
+#     metadata_lines  = [f"{config['experiment_id']}"]  # Include the expID identifier
+#     metadata_lines += [f"{key}:{value}" for key, value in config.items() if key != 'experiment_id']
+
+#     metadata_text = "\n".join(metadata_lines)
+
+#     try:
+#         with open(exp_path / meta_fname, "w") as file:
+#             file.write(metadata_text)
+#         print('\nTxt-file for Metadata created!')
+#     except Exception as e:
+#         print(f'\nCould not save txt-file for Metadata: {str(e)}')

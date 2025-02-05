@@ -1,4 +1,5 @@
 import serial
+from code import camera, utils
 
 class Serializer:
     """
@@ -96,16 +97,16 @@ def send_byte_run_acquistions(serial, camera_num, FPS, RESOLUTION_PX, SHUTTERSPE
             serial_msg = ser.receive()
         
         if serial_msg:
-            print_timestamp('\nRecording started at')
+            utils.print_timestamp('\nRecording started at')
             
-            RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+            camera.RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
             
-            print_timestamp('Recording finished at')
+            utils.print_timestamp('Recording finished at')
     
     elif camera_num == ['2']:
         ser.send(1)
-        print_timestamp('\nRecording started at')
+        utils.print_timestamp('\nRecording started at')
         
-        RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+        camera.RecordVideo(FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
         
-        print_timestamp('Recording finished at')
+        utils.print_timestamp('Recording finished at')

@@ -39,3 +39,4 @@ def parse_and_load_config():
     configuration_parameters = load_config(args.config_file)
 
     return configuration_parameters
+

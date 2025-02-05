@@ -1,4 +1,4 @@
-picam_sync_neuro: Millisecond Precision Video Recording and Neurosignal Synchronization  
+## picam_sync_neuro: Millisecond Precision Video Recording and Neurosignal Synchronization  
 
 📝 Overview
 

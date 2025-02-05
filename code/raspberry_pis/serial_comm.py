@@ -1,5 +1,5 @@
 import serial
-from code import camera, utils
+import camera, utils
 
 class Serializer:
     """

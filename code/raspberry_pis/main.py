@@ -13,36 +13,9 @@ if __name__ == '__main__':
     script_path = sys.argv[0]
     script_name = os.path.basename(script_path)
 
-    #==========================================================================
-    # Load Experiment Metadata from config.yaml file
-    #==========================================================================
-
     # load config yaml file
+    configuration_parameters = config.parse_and_load_config()
     
-    # access the metadata parameters
-    experimenter             = configuration_parameters['experimenter']
-    animalID                 = configuration_parameters['animalID']
-    speciesID                = configuration_parameters['speciesID']
-    sex                      = configuration_parameters['sex']                 
-    repro_state              = configuration_parameters['repro_state']
-    pup_age_days             = configuration_parameters['pup_age_days']
-    litter                   = configuration_parameters['litter']  
-    exp_num                  = configuration_parameters['exp_num']
-    beh_paradigm_id          = configuration_parameters['beh_paradigm_id']
-    photometry               = configuration_parameters['photometry']
-    viral_injection_date     = configuration_parameters['viral_injection_date']
-    virus_id                 = configuration_parameters['virus_id']
-    virus_target             = configuration_parameters['virus_target']
-
-
-    # Define mappings for camera_num and beh_paradigm_id
-    camera_num_mapping       = {'1': 'front', '2': 'top'}
-    beh_paradigm_mapping     = {'pr': 'pup_retrieval', 'rm': 'retrieval_motivation'}
-
-    # Use the mappings to transform the respective metadata values
-    view                     = camera_num_mapping.get(camera_num[0], camera_num[0])
-    behavior_paradigm        = beh_paradigm_mapping.get(beh_paradigm_id, beh_paradigm_id)
-
     #==========================================================================
     # Acquisition parameters
     #==========================================================================
@@ -69,13 +42,13 @@ if __name__ == '__main__':
     utils.disk_usage()
 
     # Create new experiment folder and save metadata file
-    experiment_path, new_experimentID = experiment.create_experiment_folder(experimenter, exp_num, camera_num)
+    experiment_path, new_experimentID = experiment.create_experiment_folder(experimenter, configuration_parameters['exp_num'], camera_num)
     
     # copy python script to experiment folder
     shutil.copy(__file__, str(experiment_path) + os.sep + os.path.basename(__file__)) 
     
-    # Write metadata file to the experiment_path
-    experiment.write_metadata(experiment_path)
+    # LOads and writes metadata file to the experiment_path
+    experiment.load_write_metadata(experiment_path, script_name)
     
     # serial port initialization (uses camera_num as list), send byte from rpi2 to rpi1 and acquistion start
     ser = serial_comm.Serializer(camera_num)

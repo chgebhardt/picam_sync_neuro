@@ -1,4 +1,4 @@
-experimenter : ''                    # experimenter initials in capital letters
+experimenter : 'CG'                    # experimenter initials in capital letters
 animalID: ''                       # animalID from Bendesky mouse database
 speciesID: ''                        # PO or BW or IS
 sex: ''                          # 'female' or 'male'

@@ -1,5 +1,5 @@
 import picamera
-import io
+import io, os
 import datetime as dt
 import time
 
@@ -88,10 +88,10 @@ def RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS
             camera.shutter_speed = SHUTTERSPEED_US # in microseconds
             camera.awb_mode      = 'off'
             
-            if camera_num == ['1']:
+            if configuration_parameters['camera_num'] == ['1']:
                rg , bg           = (0.8, 0.9) # automatic awb_mode is not working in NOIR picamera with firmware pre 07/2019!!!
             
-            elif camera_num == ['2']:
+            elif configuration_parameters['camera_num'] == ['2']:
                rg , bg           = (0.9, 0.85)
             
             camera.awb_gains     = (rg,bg) 
@@ -113,5 +113,5 @@ def RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS
     
         camera.stop_recording()
         
-        if camera_preview:
+        if configuration_parameters['camera_preview']:
             camera.stop_preview()

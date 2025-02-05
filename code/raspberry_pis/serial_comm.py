@@ -67,7 +67,7 @@ class Serializer:
             print("Serial port is not open. Cannot receive data.")  
 
 
-def send_byte_run_acquistions(serial, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
+def send_byte_run_acquistions(serial, experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
  
     """
     Send a signal byte and start video acquisitions for the specified camera.

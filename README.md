@@ -2,20 +2,20 @@
 
 📝 Overview
 
-This project enables millisecond synchronization of (currently) two Raspberry Pi Cameras recordings from different angles and synchronizing that with neuro recordings. 
+This project enables millisecond synchronization of (currently) two Raspberry Pi Cameras recordings from different angles and synchronizing them with neural recordings. 
 Achieving this precision required:
 
 A serial connection between two Raspberry Pis.
 
 A blinking LED driven by an Arduino ISP for synchronization.
 
-A DAQ board to record LED voltage for post-processing alignment with neurosignal.
+A DAQ board to record LED voltage for post-processing alignment with neural signal.
 
 Custom post-processing code to synchronize the PiCameras with the DAQ signal.
 
 🚀 Features
 
-✅ Dual PiCamera synchronization within millisecond precision
+✅ Dual PiCamera synchronization with millisecond precision
 ✅ Arduino-driven LED synchronization system
 ✅ DAQ board integration for external signal alignment
 ✅ Robust post-processing pipeline for data correction
@@ -30,7 +30,7 @@ Required Hardware
 
 1× Arduino (Model X) as an ISP for LED control
 
-1× DAQ Board (e.g., Fiber Photometry, Open-Ephys) for voltage and neuro signal recording
+1× DAQ Board (e.g., Fiber Photometry, Open-Ephys) for voltage and neural signal recording
 
 910nm Infrared LED + Resistors + Wires
 

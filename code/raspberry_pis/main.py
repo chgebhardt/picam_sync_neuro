@@ -74,3 +74,6 @@ if __name__ == '__main__':
 
     # Close the log file
     logging.close_log_file(log_file)
+
+    # copy log file to experiment folder
+    shutil.copy(log_file.name, str(experiment_path) + os.sep + os.path.basename(log_file.name)) 

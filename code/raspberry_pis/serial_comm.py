@@ -1,5 +1,5 @@
 import serial
-import camera, utils
+import camera_acquisition, utils
 
 class Serializer:
     """
@@ -102,7 +102,7 @@ def send_byte_run_acquistions(serial, experiment_path, new_experimentID, configu
         if serial_msg:
             utils.print_timestamp('\nRecording started at')
             
-            camera.RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+            camera_acquisition.RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
             
             utils.print_timestamp('Recording finished at')
     
@@ -110,6 +110,6 @@ def send_byte_run_acquistions(serial, experiment_path, new_experimentID, configu
         serial.send(1)
         utils.print_timestamp('\nRecording started at')
         
-        camera.RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+        camera_acquisition.RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
         
         utils.print_timestamp('Recording finished at')

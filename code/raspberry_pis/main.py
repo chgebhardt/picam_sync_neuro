@@ -3,7 +3,7 @@ import os
 import sys
 import re, socket
 import config, logging, experiment, serial_comm, utils
-
+import datetime as dt
 
 if __name__ == '__main__':
    
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     experiment_path, new_experimentID = experiment.create_experiment_folder(experimenter, exp_num, camera_num)
     
     # copy python script to experiment folder
-    shutil.copy(__file__, str(experiment_path) + os.sep + os.path.basename(__file__)) 
+    shutil.copy(__file__, os.path.join(str(experiment_path), f"{dt.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_main.py"))
     
     # Writes metadata file to the experiment_path
     experiment.write_metadata(experiment_path, new_experimentID, configuration_parameters)

@@ -94,10 +94,10 @@ def send_byte_run_acquistions(serial, experiment_path, new_experimentID, configu
 
     if camera_num == ['1']:
         serial_msg = bytearray()
-        print_timestamp('\nWaiting for message from rpi2...')
+        utils.print_timestamp('\nWaiting for message from rpi2...')
         
         while not serial_msg:
-            serial_msg = ser.receive()
+            serial_msg = serial.receive()
         
         if serial_msg:
             utils.print_timestamp('\nRecording started at')

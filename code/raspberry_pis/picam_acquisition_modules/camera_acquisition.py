@@ -175,7 +175,7 @@ class TimeStamp:
     def flush(self):
         """Save the captured timestamps to a CSV file."""
         with io.open(self._timestampFile, 'w') as f:
-            f.write('index,frame_type,GPU_Time,system_time\n')
+            f.write('index, frame_type, GPU Time, time.time()\n')
             for entry in self._timestamps:
                 f.write(f"{entry[0]},{entry[1]},{entry[2]},{entry[3]:.6f}\n")
 

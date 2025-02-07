@@ -27,8 +27,6 @@ class Serializer:
     received_data = camera1.receive()
     camera1.close()
     """
-
-    class Serializer:
         
     def __init__(self, configuration_parameters, baudrate=115200, timeout=1):
         self.camera_num = configuration_parameters['camera_num']

@@ -67,9 +67,9 @@ if __name__ == '__main__':
     experiment_manager.write_metadata(experiment_path, new_experimentID, configuration_parameters)
     
     # serial port initialization (uses camera_num as list), send byte from rpi2 to rpi1 and acquistion start
-    ser = serial_comm.Serializer(camera_num)
+    ser = serial.Serializer(camera_num)
     
-    serial_comm.send_byte_run_acquistions(ser, experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
+    serial.send_byte_run_acquistions(ser, experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)
     
     ser.close()
 

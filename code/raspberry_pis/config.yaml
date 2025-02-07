@@ -14,4 +14,4 @@ virus_target: ''                    # anatomical target region (NAc/NAmSh)
 
 video_duration_mins: 1                 # in minutes
 camera_preview: True                   # if True, picams are displaying a review, if False no picam displays a review 
-illumination: 'IR'                     # # IR or dimmed room light (RL)
+illumination: 'RL'                     # # IR or dimmed room light (RL)

@@ -2,7 +2,7 @@
 
 📝 Overview
 
-This project enables millisecond synchronization of two Raspberry PiCamera video recordings from different angles and synchronizing them with each other and neural recordings. 
+This project enables millisecond precision synchronization of two Raspberry PiCamera video recordings from different angles and synchronizing them with each other and neural recordings. 
 
 Achieving this requires:
 

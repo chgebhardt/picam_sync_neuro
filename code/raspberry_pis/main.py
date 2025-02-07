@@ -46,7 +46,7 @@ if __name__ == '__main__':
     beh_paradigm_mapping = {'pr': 'pup_retrieval', 'rm': 'retrieval_motivation'}
 
     # Map values based on configuration
-    configuration_parameters['view'] = camera_num_mapping.get(camera_num[0], camera_num[0])
+    configuration_parameters['view']              = camera_num_mapping.get(camera_num[0], camera_num[0])
     configuration_parameters['behavior_paradigm'] = beh_paradigm_mapping.get(
         configuration_parameters['beh_paradigm_id'], 
         configuration_parameters['beh_paradigm_id']

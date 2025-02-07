@@ -2,17 +2,17 @@
 
 📝 Overview
 
-This project enables millisecond synchronization of (currently) two Raspberry Pi Cameras recordings from different angles and synchronizing them with neural recordings. 
+This project enables millisecond synchronization of two Raspberry PiCamera video recordings from different angles and synchronizing them with each other and neural recordings. 
 
 Achieving this requires:
 
-A serial connection between two Raspberry Pis.
+A serial connection between two Raspberry Pis.  
 
-A randomly blinking LED driven by an Arduino ISP for synchronization.
+A randomly blinking LED driven by an Arduino ISP for synchronization.  
 
-A DAQ board to record LED voltage for alignment with neural signal.
+A DAQ board to record LED voltage and neural signals.  
 
-Custom post-processing code to synchronize the PiCameras with the DAQ signal.
+Custom post-processing code to synchronize the PiCameras with the DAQ signals.  
 
 🚀 Features
 
@@ -54,7 +54,8 @@ https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspber
 
 Set up the Arduino ISP and connect the LED.
 
-Configure DAQ board inputs for LED voltage recording.
+Configure DAQ board inputs for LED voltage recording.  
+This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC to the arduino breadboard. Then it is just a matter of telling your DAQ which Input to listen to.   
 
 3️⃣ Running the Synchronization Code
 

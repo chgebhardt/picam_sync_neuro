@@ -4,7 +4,7 @@ import sys
 
 from picam_acquisition_modules import config
 
-def create_experiment_folder(experimenter, exp_num, camera_num):
+def create_experiment_folder(configuration_parameters):
     """
     Create a new experiment folder for data storage.
 
@@ -25,6 +25,10 @@ def create_experiment_folder(experimenter, exp_num, camera_num):
     Example:
     exp_path, new_expID = create_experiment_folder("John Doe", "01", [1, 2])
     """
+
+    experimenter = configuration_parameters['experimenter']
+    exp_num      = configuration_parameters['exp_num']
+    camera_num   = configuration_parameters['camera_num']
     
     # Create the root path
     root_path = Path('/home/pi/Desktop/Behavior') / experimenter

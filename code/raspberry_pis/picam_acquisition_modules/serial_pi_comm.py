@@ -28,8 +28,10 @@ class Serializer:
     camera1.close()
     """
 
-    def __init__(self, camera_num, baudrate=115200, timeout=1):
-        self.camera_num = camera_num
+    class Serializer:
+        
+    def __init__(self, configuration_parameters, baudrate=115200, timeout=1):
+        self.camera_num = configuration_parameters['camera_num']
         self.port = self._initialize_serial_port(baudrate, timeout)
     
     def _initialize_serial_port(self, baudrate, timeout):
@@ -66,8 +68,7 @@ class Serializer:
         else:
             print("Serial port is not open. Cannot receive data.")  
 
-
-def send_byte_run_acquistions(serial, experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE):
+def send_byte_run_acquistions(ser, experiment_path, new_experimentID, configuration_parameters):
  
     """
     Send a signal byte and start video acquisitions for the specified camera.
@@ -89,7 +90,12 @@ def send_byte_run_acquistions(serial, experiment_path, new_experimentID, configu
     send_byte_run_acquisitions(serial_connection, ['1'])
     send_byte_run_acquisitions(serial_connection, ['2'])
     """
-
+    
+    FPS = configuration_parameters['FPS']
+    RESOLUTION_PX = configuration_parameters['RESOLUTION_PX']
+    SHUTTERSPEED_US = configuration_parameters['SHUTTERSPEED_US']
+    CAMERA_MODE = configuration_parameters['CAMERA_MODE']
+    BITRATE = configuration_parameters['BITRATE']    
     camera_num = configuration_parameters['camera_num']
 
     if camera_num == ['1']:

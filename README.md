@@ -55,7 +55,7 @@ https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspber
 Set up the Arduino ISP and connect the LED.
 
 Configure DAQ board inputs for LED voltage recording.  
-###This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC to the arduino breadboard. Then it is just a matter of telling your DAQ which Input to listen to.   
+### This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC to the arduino breadboard. Then it is just a matter of telling your DAQ which Input to listen to.   
 
 3️⃣ Running the Synchronization Code
 

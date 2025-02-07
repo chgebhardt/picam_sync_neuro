@@ -3,38 +3,38 @@
 📝 Overview
 
 This project enables millisecond synchronization of (currently) two Raspberry Pi Cameras recordings from different angles and synchronizing them with neural recordings. 
-Achieving this precision required:
+
+Achieving this requires:
 
 A serial connection between two Raspberry Pis.
 
-A blinking LED driven by an Arduino ISP for synchronization.
+A randomly blinking LED driven by an Arduino ISP for synchronization.
 
-A DAQ board to record LED voltage for post-processing alignment with neural signal.
+A DAQ board to record LED voltage for alignment with neural signal.
 
 Custom post-processing code to synchronize the PiCameras with the DAQ signal.
 
 🚀 Features
 
 ✅ Dual PiCamera synchronization with millisecond precision
-✅ Arduino-driven LED synchronization system
-✅ DAQ board integration for external signal alignment
-✅ Robust post-processing pipeline for data correction
+✅ Arduino-driven LED synchronization
+✅ DAQ board integration for neural signal alignment
+✅ Robust post-processing pipeline
 
 🛠️ Hardware & Components
 
 Required Hardware
 
-2× Raspberry Pi 3B+ (32-bit Raspbian) with NO-IR PiCamera modules
+2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with NO-IR PiCamera modules
 
 1× Serial-to-USB cable to connect the Raspberry Pis
 
-1× Arduino (Model X) as an ISP for LED control
+1× Arduino as an ISP for LED control
 
-1× DAQ Board (e.g., Fiber Photometry, Open-Ephys) for voltage and neural signal recording
+1× DAQ Board (e.g., Fiber Photometry or Open-Ephys rig) for voltage and neural signal recording
 
 910nm Infrared LED + Resistors + Wires
 
-Optional: External trigger input for additional hardware integration
 
 📂 Installation & Setup
 
@@ -45,6 +45,7 @@ Clone the repository and install dependencies:
 git clone https://github.com/yourusername/picam_sync_neuro.git  
 cd picam_sync_neuro 
 conda env create -f python_dependencies_reqs.yml
+conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 

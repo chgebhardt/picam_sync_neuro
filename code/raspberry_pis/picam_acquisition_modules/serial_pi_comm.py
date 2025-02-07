@@ -205,6 +205,7 @@ class Serializer:
         else:
             print("Serial port is not open. Cannot receive data.")
 
+
 def send_byte_run_acquisitions(ser, experiment_path, new_experimentID, configuration_parameters):
     """
     Sends a signal byte to control camera acquisition.

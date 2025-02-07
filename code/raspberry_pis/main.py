@@ -100,7 +100,7 @@ if __name__ == '__main__':
     ser = serial_pi_comm.Serializer(configuration_parameters)
 
     # Start video acquisition (passing the full config dictionary)
-    serial_pi_comm.send_byte_run_acquistions(ser, experiment_path, new_experimentID, configuration_parameters)
+    serial_pi_comm.send_byte_run_acquisitions(ser, experiment_path, new_experimentID, configuration_parameters)
 
     # Close serial communication
     ser.close()

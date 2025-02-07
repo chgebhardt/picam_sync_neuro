@@ -2,8 +2,9 @@ import shutil
 import os
 import sys
 import re, socket
-import config, logging, experiment, serial_comm, utils
 import datetime as dt
+
+from picam_acquisition_modules import config, logging, experiment_manager, serial, utils
 
 if __name__ == '__main__':
    

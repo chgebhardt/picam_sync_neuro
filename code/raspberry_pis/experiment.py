@@ -1,6 +1,7 @@
 import datetime as dt
 from pathlib import Path
 import sys
+
 import config
 
 def create_experiment_folder(experimenter, exp_num, camera_num):
@@ -102,32 +103,3 @@ def write_metadata(exp_path, new_experimentID, configuration_parameters):
 
     except Exception as e:
         print(f'\nCould not save txt-file for Metadata: {str(e)}')
-
-
-# def write_metadata(exp_path, config):
-#     """
-#     Create a metadata text file for experiment information.
-
-#     This function generates a text file containing metadata related to an
-#     experiment, and it dynamically reads the content from the provided config dictionary.
-#     The text file is named after the experiment's unique identifier and is stored in the specified experiment path.
-
-#     Parameters:
-#     exp_path (str): The path where the metadata text file will be saved.
-#     config (dict): The dictionary containing metadata parameters.
-
-#     Returns:
-#     None
-#     """
-#     meta_fname      = f"{config['experiment_id']}.txt"
-#     metadata_lines  = [f"{config['experiment_id']}"]  # Include the expID identifier
-#     metadata_lines += [f"{key}:{value}" for key, value in config.items() if key != 'experiment_id']
-
-#     metadata_text = "\n".join(metadata_lines)
-
-#     try:
-#         with open(exp_path / meta_fname, "w") as file:
-#             file.write(metadata_text)
-#         print('\nTxt-file for Metadata created!')
-#     except Exception as e:
-#         print(f'\nCould not save txt-file for Metadata: {str(e)}')

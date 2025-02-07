@@ -58,13 +58,13 @@ if __name__ == '__main__':
     utils.disk_usage()
 
     # Create new experiment folder and save metadata file
-    experiment_path, new_experimentID = experiment.create_experiment_folder(experimenter, exp_num, camera_num)
+    experiment_path, new_experimentID = experiment_manager.create_experiment_folder(experimenter, exp_num, camera_num)
     
     # copy python script to experiment folder
     shutil.copy(__file__, os.path.join(str(experiment_path), f"{dt.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_main.py"))
     
     # Writes metadata file to the experiment_path
-    experiment.write_metadata(experiment_path, new_experimentID, configuration_parameters)
+    experiment_manager.write_metadata(experiment_path, new_experimentID, configuration_parameters)
     
     # serial port initialization (uses camera_num as list), send byte from rpi2 to rpi1 and acquistion start
     ser = serial_comm.Serializer(camera_num)

@@ -101,7 +101,7 @@ def send_byte_run_acquistions(ser, experiment_path, new_experimentID, configurat
         utils.print_timestamp('\nWaiting for message from rpi2...')
         
         while not serial_msg:
-            serial_msg = serial.receive()
+            serial_msg = ser.receive()
         
         if serial_msg:
             utils.print_timestamp('\nRecording started at')
@@ -111,7 +111,7 @@ def send_byte_run_acquistions(ser, experiment_path, new_experimentID, configurat
             utils.print_timestamp('Recording finished at')
     
     elif camera_num == ['2']:
-        serial.send(1)
+        ser.send(1)
         utils.print_timestamp('\nRecording started at')
         
         camera_acquisition.RecordVideo(experiment_path, new_experimentID, configuration_parameters, FPS, RESOLUTION_PX, SHUTTERSPEED_US, CAMERA_MODE, BITRATE)

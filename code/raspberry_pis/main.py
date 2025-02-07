@@ -33,7 +33,7 @@ if __name__ == '__main__':
     script_name = os.path.basename(sys.argv[0])  
 
     # Load configuration from YAML
-    configuration_parameters = config.parse_and_load_config()
+    configuration_parameters = config.parse_config_and_load()
 
     # Update configuration with dynamically detected parameters
     configuration_parameters.update({

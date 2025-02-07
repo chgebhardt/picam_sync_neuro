@@ -2,7 +2,7 @@ import yaml
 import argparse
 import os
 
-def load_config(file_path):
+def load_yaml_config(file_path):
     """
     Load configuration parameters from a YAML file.
     
@@ -25,7 +25,8 @@ def load_config(file_path):
         except yaml.YAMLError as e:
             raise ValueError(f"Error parsing the YAML file: {e}")
 
-def parse_and_load_config():
+
+def parse_config_and_load():
     """
     Parse command-line arguments and load configuration parameters from a YAML file.
     
@@ -51,6 +52,6 @@ def parse_and_load_config():
     args = parser.parse_args()
 
     # Load and return the configuration from the specified file
-    return load_config(args.config_file)
+    return load_yaml_config(args.config_file)
 
 

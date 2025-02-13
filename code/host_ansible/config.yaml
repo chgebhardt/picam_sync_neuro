@@ -1,0 +1,17 @@
+experimenter : 'CG'                    # experimenter initials in capital letters
+animalID: ''                       # animalID from Bendesky mouse database
+speciesID: ''                        # PO or BW or IS
+sex: ''                          # 'female' or 'male'
+repro_state: ''                  # 'mother' or 'father' or 'virgin' or 'mated' or 'pregnant'
+pup_age_days: ''                      # usually between '2' and '5' days
+litter: ''                   # 'own' or 'unfamiliar'  
+exp_num: '01'                          # '01', '02' etc.
+beh_paradigm_id: ''                  # (pr = pup retrieval, rm = retrieval motivation)
+photometry: ''                      # 'yes' or 'no'
+viral_injection_date: ''     # yyyy-mm-dd
+virus_id: ''     # virus identifier e.g. pAAV2/9-hSyn-GRAB-DA2m
+virus_target: ''                    # anatomical target region (NAc/NAmSh)
+
+video_duration_mins: 1                 # in minutes
+camera_preview: True                   # if True, picams are displaying a review, if False no picam displays a review 
+illumination: 'RL'                     # # IR or dimmed room light (RL)

@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io/api/linux,macos
+le# Created by https://www.gitignore.io/api/linux,macos
 # Edit at https://www.gitignore.io/?templates=linux,macos
 
 ### Linux ###
@@ -46,4 +46,4 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/linux,macos
 
-code/host_ansible/inventory.ini
+code/host_ansible_schduler/inventory.ini

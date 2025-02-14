@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    source_directory: "{{ source_directory | default('/home/chris/Desktop/') }}"
+    source_directory: "{{ source_directory }}"
   tasks:
     - name: Set timestamp fact
       set_fact:
@@ -10,35 +10,28 @@
     - name: Copy config.yaml to Pis
       copy:
         src:  "{{ source_directory }}/ansible_scripts/config.yaml"
-        dest: /home/pi/Desktop/scripts/{{ timestamp }}_config.yaml
+        dest: "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
       become: yes
-
-    - name: Copy Python script to Pis
-      copy:
-        src:  "{{ source_directory }}/python_scripts/2pis5.py"
-        dest: "/home/pi/Desktop/scripts/{{ timestamp }}_2pis5.py"
-      become: yes
-
 
 - hosts: rpi1
   tasks:
-    - name: Print the time when script1 is initiated
+    - name: Print the time when main.py is initiated
       debug:
-        msg: "script1 initiated at {{ ansible_date_time.date }} {{ ansible_date_time.time }}"
+        msg: "main.py initiated at {{ ansible_date_time.date }} {{ ansible_date_time.time }}"
 
-    - name: Start script1 on rpi1
-      command: python3 "/home/pi/Desktop/scripts/{{ timestamp }}_2pis5.py" "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
-      async: 10000 # timeout limit in seconds (needs to be at least as long as the script is going to run), both script1 and script2 need to have async != 0
+    - name: Start main.py on rpi1
+      command: python3 "/home/pi/Desktop/picam_sync_neuro/code/raspberry_pis/main.py" "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
+      async: 10000
       poll: 0
       
 - hosts: rpi2
   tasks:
-    - name: Print the time when script2 is initiated
+    - name: Print the time when main.py is initiated
       debug:
-        msg: "script2 initiated at {{ ansible_date_time.date }} {{ ansible_date_time.time }}"
+        msg: "main.py initiated at {{ ansible_date_time.date }} {{ ansible_date_time.time }}"
 
-    - name: Start script2 on rpi2 
-      command: python3 "/home/pi/Desktop/scripts/{{ timestamp }}_2pis5.py" "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
-      async: 10000 # timeout limit in seconds (needs to be at least as long as the script is going to run)
+    - name: Start main.py on rpi2 
+      command: python3 "/home/pi/Desktop/picam_sync_neuro/code/raspberry_pis/main.py" "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
+      async: 10000
       poll: 0
-      
+

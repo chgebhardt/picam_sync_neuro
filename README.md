@@ -19,6 +19,7 @@ Custom post-processing code to synchronize the PiCameras with the DAQ signals.
 ✅ Dual PiCamera synchronization with millisecond precision  
 ✅ Arduino-driven LED synchronization  
 ✅ DAQ board integration for neural signal alignment  
+✅ Optional manual start or automation via Ansible   
 ✅ Robust post-processing pipeline  
 
 🛠️ Hardware & Components
@@ -43,6 +44,7 @@ Required Hardware
 Clone the repository to both Pis and the main computer (eg. your laptop):
 
 ```
+cd ~/Desktop/
 git clone https://github.com/yourusername/picam_sync_neuro.git
 ```
 install dependencies on your main computer:   
@@ -63,9 +65,36 @@ Configure DAQ board inputs for LED voltage recording.
 This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC to the arduino breadboard. Then it is just a matter of telling your DAQ which Input to listen to.
   
 
-3️⃣ Running the Synchronization Code
+3️⃣ Run the main.py script on both Pis:
 
-python software/raspberry_pi/sync_record.py --config config.yaml  
+- VNC into both Pis and open a terminal in each one
+- then modify the config.yaml according your needs (has to be the same on both Pis):
+  ```
+  cd ~/Desktop/picam_sync_neuro/code/raspberry_pis
+  nano config.yaml
+  ```
+- first, run this on rpi1 (serial msg receiver) and then on the rpi2 (serial msg sender):
+  ```
+  python3 main.py config.yaml 
+  ```
+(optional: install a scheduler on your main computer e.g. ansible)
+```
+sudo apt get update
+sudo apt get install ansible
+```
+(optional: setup an inventory.ini file containing the IP addresses of your Pis)
+```
+nano inventory.ini
+```
+(optional: modify the config.yaml on the main computer)
+```
+nano config.yaml
+```
+(optional: start the ansible-playbook on the main computer, takes care of the timing of both Pis)
+```
+ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pis"
+```
+
 
 📊 Data Processing & Synchronization
 

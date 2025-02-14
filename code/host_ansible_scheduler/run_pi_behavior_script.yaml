@@ -9,7 +9,7 @@
 
     - name: Copy config.yaml to Pis
       copy:
-        src:  "{{ source_directory }}/ansible_scripts/config.yaml"
+        src:  "{{ source_directory }}/config.yaml"
         dest: "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
       become: yes
 

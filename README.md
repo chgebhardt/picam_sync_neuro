@@ -40,12 +40,17 @@ Required Hardware
 
 1️⃣ Software Installation
 
-Clone the repository and install dependencies:
+Clone the repository to both Pis and the main computer (eg. your laptop):
 
-git clone https://github.com/yourusername/picam_sync_neuro.git  
+```
+git clone https://github.com/yourusername/picam_sync_neuro.git
+```
+install dependencies on your main computer:   
+```
 cd picam_sync_neuro 
 conda env create -f python_dependencies_reqs.yml
 conda activate picam_sync_neuro
+```
 
 2️⃣ Hardware Setup
 

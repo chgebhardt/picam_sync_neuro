@@ -8,11 +8,11 @@ Achieving this requires:
 
 A serial connection between two Raspberry Pis.  
 
-A randomly blinking LED driven by an Arduino ISP for synchronization.  
+- A randomly blinking LED driven by an Arduino ISP for synchronization.  
 
-A DAQ board to record LED voltage and neural signals.  
+- A DAQ board to record LED voltage and neural signals.  
 
-Custom post-processing code to synchronize the PiCameras with the DAQ signals.  
+- Custom post-processing code to synchronize the PiCameras with the DAQ signals.  
 
 🚀 Features
 

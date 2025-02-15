@@ -56,8 +56,8 @@ conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 
-- Connect Raspberry Pis via a serial-to-USB link. For that I followed:
-[Link Text](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/)
+- Connect Raspberry Pis via a serial-to-USB link. For that I followed this 
+[link](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
 
 - Set up the Arduino as ISP and connect the LED.
 

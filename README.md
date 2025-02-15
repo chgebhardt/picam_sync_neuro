@@ -6,11 +6,11 @@ This project enables millisecond precision synchronization of two Raspberry PiCa
 
 Achieving this requires:
 
-A serial connection between two Raspberry Pis.  
+- serial connection between two Raspberry Pis.  
 
-- A randomly blinking LED driven by an Arduino ISP for synchronization.  
+- randomly blinking LED driven by an Arduino ISP for synchronization.  
 
-- A DAQ board to record LED voltage and neural signals.  
+- DAQ board to record LED voltage and neural signals.  
 
 - Custom post-processing code to synchronize the PiCameras with the DAQ signals.  
 

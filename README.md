@@ -64,7 +64,7 @@ conda activate picam_sync_neuro
 This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC into the arduino circuit on the breadboard. Then it is just a matter of telling your DAQ which Input to listen to.
   
 
-3️⃣ Run the main.py script on both Pis:
+3️⃣ Video Recording on both Pis:
 
 - VNC into both Pis and open a terminal in each one
 - then modify the config.yaml according your needs (has to be the same on both Pis):
@@ -98,13 +98,9 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
 
 📊 Data Processing & Synchronization
 
-- retrieve the recording folders from the Pis (fetch.sh) 
-- start 
-Timestamps from PiCameras & DAQ board are aligned using post_process.py.
-
-LED signals are extracted and used for fine-tuning timestamps.
-
-Final synchronized video outputs can be analyzed in analysis/.
+- retrieve the recording folders from the Pis (fetch.sh) -> date-e#
+- open jupyter notebook and start project initiation (sets up folders, converts the movies and extracts the image information of the binking LED)
+- run analysis pipeline to synchronize neural signals with the video
 
 📜 License
 

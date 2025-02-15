@@ -77,20 +77,20 @@ This depends very much on what kind of system you have. Most DAQs will have a BN
   ```
   python3 main.py config.yaml 
   ```
-(optional: install a scheduler on your main computer e.g. ansible)
+(optional: Install a scheduler on your main computer e.g. ansible)
 ```
 sudo apt get update
 sudo apt get install ansible
 ```
-(optional: setup an inventory.ini file containing the IP addresses of your Pis)
+(optional: Setup an inventory.ini file containing the IP addresses of your Pis)
 ```
 nano inventory.ini
 ```
-(optional: modify the config.yaml on the main computer)
+(optional: Modify the config.yaml on the main computer)
 ```
 nano config.yaml
 ```
-(optional: start the ansible-playbook on the main computer, takes care of the timing of both Pis)
+(optional: Start the ansible-playbook on the main computer. This takes care of the transfer of the same config.yaml and also the timing of both Pis.)
 ```
 ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pis"
 ```

@@ -19,7 +19,7 @@ Custom post-processing code to synchronize the PiCameras with the DAQ signals.
 ✅ Dual PiCamera synchronization with millisecond precision  
 ✅ Arduino-driven LED synchronization  
 ✅ DAQ board integration for neural signal alignment  
-✅ Optional manual start or automation via Ansible   
+✅ Optional manual start of the recording scripts on the Raspberry Pis or automation via ansible   
 ✅ Robust post-processing pipeline  
 
 🛠️ Hardware & Components

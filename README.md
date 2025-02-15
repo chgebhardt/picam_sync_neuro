@@ -56,7 +56,7 @@ conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 
-- Setup raspberry Pis as rpi1 and rpi2 and connect the Picams.
+- Setup raspberry Pis as rpi1 and rpi2 and connect the respective Picams.
 - Connect Raspberries rpi2>rpi1 via a serial-to-USB link. I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
 - Set up the Arduino as ISP and connect the LED.

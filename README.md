@@ -62,7 +62,7 @@ conda activate picam_sync_neuro
 - Set up the Arduino as ISP and connect the LED.
 
 - Configure DAQ board inputs for LED voltage recording.  
-This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC to the arduino breadboard. Then it is just a matter of telling your DAQ which Input to listen to.
+This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC into the arduino circuit on the breadboard. Then it is just a matter of telling your DAQ which Input to listen to.
   
 
 3️⃣ Run the main.py script on both Pis:

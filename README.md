@@ -45,7 +45,7 @@ Clone the repository to both Pis and the main computer (eg. your laptop):
 
 ```
 cd ~/Desktop/
-git clone https://github.com/yourusername/picam_sync_neuro.git
+git clone https://github.com/chgebhardt/picam_sync_neuro.git
 ```
 install dependencies on your main computer:   
 ```
@@ -56,12 +56,13 @@ conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 
-Connect Raspberry Pis via a serial-to-USB link. I followed:  
+- Connect Raspberry Pis via a serial-to-USB link. For that I followed:  
+```
 https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/
+```
+- Set up the Arduino as ISP and connect the LED.
 
-Set up the Arduino ISP and connect the LED.
-
-Configure DAQ board inputs for LED voltage recording.  
+- Configure DAQ board inputs for LED voltage recording.  
 This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC to the arduino breadboard. Then it is just a matter of telling your DAQ which Input to listen to.
   
 

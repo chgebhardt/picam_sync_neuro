@@ -56,11 +56,10 @@ conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 
-- Connect Raspberry Pis via a serial-to-USB link. I basically followed 
+- Setup raspberry Pis as rpi1 and rpi2 and connect the Picams.
+- Connect Raspberries rpi2>rpi1 via a serial-to-USB link. I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
-
 - Set up the Arduino as ISP and connect the LED.
-
 - Configure DAQ board inputs for LED voltage recording.  
 This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC into the arduino circuit on the breadboard. Then it is just a matter of telling your DAQ which Input to listen to.
   
@@ -73,7 +72,7 @@ This depends very much on what kind of system you have. Most DAQs will have a BN
   cd ~/Desktop/picam_sync_neuro/code/raspberry_pis
   nano config.yaml
   ```
-- first, run this on rpi1 (serial msg receiver) and then on the rpi2 (serial msg sender):
+- first, run main.py on rpi1 (serial msg receiver) and then on the rpi2 (serial msg sender):
   ```
   python3 main.py config.yaml 
   ```
@@ -82,7 +81,7 @@ This depends very much on what kind of system you have. Most DAQs will have a BN
 sudo apt get update
 sudo apt get install ansible
 ```
-(optional: Setup an inventory.ini file containing the IP addresses of your Pis)
+(optional: Set up an inventory.ini file containing the IP addresses of your Pis)
 ```
 nano inventory.ini
 ```
@@ -90,14 +89,17 @@ nano inventory.ini
 ```
 nano config.yaml
 ```
-(optional: Start the ansible-playbook on the main computer. This takes care of the transfer of the same config.yaml and also the timing of both Pis.)
+(optional: Start the ansible-playbook on the main computer. This takes care of the transfer of the config.yaml to both Pis as well as script timing.)
 ```
+cd code/host_ansible_scheduler
 ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pis"
 ```
 
 
 📊 Data Processing & Synchronization
 
+- retrieve the recording folders from the Pis (fetch.sh) 
+- start 
 Timestamps from PiCameras & DAQ board are aligned using post_process.py.
 
 LED signals are extracted and used for fine-tuning timestamps.

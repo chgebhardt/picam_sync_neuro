@@ -81,7 +81,7 @@ This depends very much on what kind of system you have. Most DAQs will have a BN
 sudo apt get update
 sudo apt get install ansible
 ```
-(optional: Set up an inventory.ini file containing the IP addresses and ports to connect to your Pis)
+(optional: Set up an inventory.ini file containing the IP addresses and ports to connect to your Pis on your main computer)
 ```
 nano inventory.ini
 ```

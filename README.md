@@ -41,7 +41,7 @@ Required Hardware
 
 1️⃣ Software Installation
 
-Clone the repository to both Pis and the main computer (eg. your laptop):
+Clone the repository to both Pis and the main computer (eg. your laptop or the workstation with the DAQ board):
 
 ```
 cd ~/Desktop/

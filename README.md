@@ -6,11 +6,11 @@ This project enables millisecond precision synchronization of two Raspberry PiCa
 
 Achieving this requires:
 
-- serial connection between two Raspberry Pis.  
+- a serial connection between two Raspberry Pis.  
 
-- randomly blinking LED driven by an Arduino ISP for synchronization.  
+- a randomly blinking LED driven by an ATMEGA328P microcontroller.  
 
-- DAQ board to record LED voltage and neural signals.  
+- a DAQ board to record LED voltage and neural signals.  
 
 - Custom post-processing code to synchronize the PiCameras with the DAQ signals.  
 
@@ -26,7 +26,7 @@ Achieving this requires:
 
 Required Hardware
 
-2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with NO-IR PiCamera modules
+2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with **NO-IR** PiCamera modules
 
 1× [FTDI Serial TTL-232 USB Cable](https://www.adafruit.com/product/70) and [female RS232-to-TTL converter](https://www.amazon.com/MAX3232-Connector-Converter-Equipment-Upgrades/dp/B07PFB4MHR?keywords=RS232+to+TTL+adapter&linkCode=ll2&linkId=068289c5d86a3fea3e85f853d1c90e97&psc=1&qid=1567698272&s=gateway&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTUxVTTJIUDJSTEJGJmVuY3J5cHRlZElkPUEwNTgzMzQ3M0NJRU1EUVRJMElVViZlbmNyeXB0ZWRBZElkPUEwNjQ1MTg5MUxQNFRXTVRFQ0RHTSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU%3D&sr=8-1-spons)
 
@@ -75,6 +75,8 @@ conda activate picam_sync_neuro
 </p>
 
 - (Optional: Solder the LED circuit and BNC permanently to a breadboard)
+
+- Then place the breadboard such that it 
 
 3️⃣ Video Recording on both Pis:
 

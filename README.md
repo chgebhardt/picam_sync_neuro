@@ -34,7 +34,7 @@ Required Hardware
 
 1× DAQ Board (e.g., Fiber Photometry or Open-Ephys rig) for voltage and neural signal recording
 
-910nm Infrared LED + Resistors + Wires
+[940nm Infrared LED](https://www.amazon.com/Adafruit-Super-bright-5mm-pack-ADA388/dp/B00ULB0U44) + Resistors + Wires
 
 
 📂 Installation & Setup

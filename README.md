@@ -114,7 +114,7 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
 ```
 
 
-📊 Data Processing & Synchronization (work in process!!!)
+📊 Data Processing & Synchronization (**coming soon!!!**)
 
 - retrieve the recording folders from the Pis (fetch.sh) -> date-e#
 - open jupyter notebook and start project initiation (sets up folders, converts the movies and extracts the image information of the binking LED)

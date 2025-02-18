@@ -70,6 +70,9 @@ conda activate picam_sync_neuro
 - Configure DAQ board inputs for LED voltage recording.  
 *This depends very much on what kind of neural signal recording system you have. Most rigs will have a DAQ with a BNC input, so I soldered a [female pre-assembeled BNC](https://atlas-scientific.com/connectors/pre-assembled-female-bnc/) into the arduino circuit on the breadboard. Then it is just a matter of telling your DAQ which Input to listen to.*
 
+<p align="center">
+  <img src="images/female_BNC.jpg" alt="BNC" width="400">
+</p>
 
 3️⃣ Video Recording on both Pis:
 

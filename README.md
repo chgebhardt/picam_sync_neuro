@@ -32,9 +32,9 @@ Required Hardware
 
 1× Arduino
 
-1x [ATMEGA328P microcontroller](https://www.amazon.com/ATMEGA328P-PU-Without-Ar-BOOTLOADER-Socket-Crystal/dp/B07Q3F1D9Z?crid=1RZL4OTYPLHH1&dchild=1&keywords=atmega328p-pu&qid=1619732452&sprefix=ATMega328P%25252Caps%25252C166&sr=8-13), breadboard
+1x [ATMEGA328P microcontroller kit](https://www.amazon.com/ATMEGA328P-PU-Without-Ar-BOOTLOADER-Socket-Crystal/dp/B07Q3F1D9Z?crid=1RZL4OTYPLHH1&dchild=1&keywords=atmega328p-pu&qid=1619732452&sprefix=ATMega328P%25252Caps%25252C166&sr=8-13), [breadboard](https://www.adafruit.com/product/1609)
 
-1x [940nm Infrared LED](https://www.amazon.com/Adafruit-Super-bright-5mm-pack-ADA388/dp/B00ULB0U44) + Resistors + Wires
+1x [940nm Infrared LED](https://www.amazon.com/Adafruit-Super-bright-5mm-pack-ADA388/dp/B00ULB0U44) + Wires
 
 1× DAQ Board (e.g., Fiber Photometry or Open-Ephys rig) for voltage and neural signal recording
 
@@ -68,11 +68,13 @@ conda activate picam_sync_neuro
 </p>
 
 - Configure DAQ board inputs for LED voltage recording.  
-*This depends very much on what kind of neural signal recording system you have. Most rigs will have a DAQ with a BNC input, so I soldered a [female pre-assembeled BNC](https://atlas-scientific.com/connectors/pre-assembled-female-bnc/) into the arduino circuit on the breadboard. Connect the BNC out on the breadboard to a BNC Input on the DAQ and then it is just a matter of telling your DAQ which Input to listen to.*
+*This depends very much on what kind of neural signal recording system you have. Most rigs will have a DAQ with a BNC input, so I added a [female pre-assembeled BNC](https://atlas-scientific.com/connectors/pre-assembled-female-bnc/) into the arduino circuit on the breadboard. Connect the BNC out on the breadboard to a BNC Input on the DAQ and then it is just a matter of telling your DAQ which Input to listen to.*
 
 <p align="center">
   <img src="images/female_BNC.jpg" alt="BNC" width="400">
 </p>
+
+- (Optional: Solder the LED circuit and BNC permanently to a breadboard)
 
 3️⃣ Video Recording on both Pis:
 

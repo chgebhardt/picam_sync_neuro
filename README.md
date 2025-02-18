@@ -28,15 +28,15 @@ Required Hardware
 
 2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with NO-IR PiCamera modules
 
-1× Serial-to-USB cable to connect the Raspberry Pis
+1× [FTDI Serial TTL-232 USB Cable](https://www.adafruit.com/product/70) and [female RS232-to-TTL converter](https://www.amazon.com/MAX3232-Connector-Converter-Equipment-Upgrades/dp/B07PFB4MHR?keywords=RS232+to+TTL+adapter&linkCode=ll2&linkId=068289c5d86a3fea3e85f853d1c90e97&psc=1&qid=1567698272&s=gateway&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTUxVTTJIUDJSTEJGJmVuY3J5cHRlZElkPUEwNTgzMzQ3M0NJRU1EUVRJMElVViZlbmNyeXB0ZWRBZElkPUEwNjQ1MTg5MUxQNFRXTVRFQ0RHTSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU%3D&sr=8-1-spons)
 
 1× Arduino
 
 1x [ATMEGA328P microcontroller kit](https://www.amazon.com/ATMEGA328P-PU-Without-Ar-BOOTLOADER-Socket-Crystal/dp/B07Q3F1D9Z?crid=1RZL4OTYPLHH1&dchild=1&keywords=atmega328p-pu&qid=1619732452&sprefix=ATMega328P%25252Caps%25252C166&sr=8-13), [breadboard](https://www.adafruit.com/product/1609)
 
-1x [940nm Infrared LED](https://www.amazon.com/Adafruit-Super-bright-5mm-pack-ADA388/dp/B00ULB0U44) + Wires
+1x [940nm Infrared LED](https://www.amazon.com/Adafruit-Super-bright-5mm-pack-ADA388/dp/B00ULB0U44) invisible to humans (!) and mice + wires
 
-1× DAQ Board (e.g., Fiber Photometry or Open-Ephys rig) for voltage and neural signal recording
+1× DAQ Board (e.g., in a Fiber Photometry or Open-Ephys rig) for voltage and neural signal recording
 
 
 📂 Installation & Setup
@@ -59,7 +59,7 @@ conda activate picam_sync_neuro
 2️⃣ Hardware Setup
 
 - Setup raspberry Pis as rpi1 and rpi2 and connect the respective Picams.
-- Connect Raspberries rpi2>rpi1 via a [FTDI Serial TTL-232 USB Cable](https://www.adafruit.com/product/70) and a [female RS232-to-TTL converter](https://www.amazon.com/MAX3232-Connector-Converter-Equipment-Upgrades/dp/B07PFB4MHR?keywords=RS232+to+TTL+adapter&linkCode=ll2&linkId=068289c5d86a3fea3e85f853d1c90e97&psc=1&qid=1567698272&s=gateway&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTUxVTTJIUDJSTEJGJmVuY3J5cHRlZElkPUEwNTgzMzQ3M0NJRU1EUVRJMElVViZlbmNyeXB0ZWRBZElkPUEwNjQ1MTg5MUxQNFRXTVRFQ0RHTSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU%3D&sr=8-1-spons). Otherwise, I basically followed 
+- Connect Raspberries rpi2>rpi1 via the Serial TTL-232 connection. Otherwise, I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
 - Set up an [Arduino as ISP](https://www.notesandvolts.com/2013/01/fun-with-arduino-arduino-as-isp.html) to copy the [arduino script for a blinking LED](https://github.com/chgebhardt/picam_sync_neuro/tree/main/code/arduino) on the ATMEGA328P microcontroller.
 

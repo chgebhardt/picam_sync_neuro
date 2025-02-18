@@ -10,10 +10,8 @@ with picamera.PiCamera() as camera:
     camera.resolution  = (1280,720)
     camera.iso = 300
     camera.shutter_speed = 3000 #in microseconds
-    #camera.exposure_mode = 'off'
    
     #Wait for the automatic gain control to settle
-    #sleep(2)
     # Now fix the values
     camera.awb_mode = 'off'
     
@@ -22,7 +20,6 @@ with picamera.PiCamera() as camera:
     camera.brightness = 60
     camera.contrast   = 80
 
-    #camera.start_preview(fullscreen=False, window = (200, 50, 1160, 590))
     camera.start_preview(fullscreen=False, window = (400, 70, 640, 320))
    
     

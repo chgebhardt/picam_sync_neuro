@@ -82,7 +82,9 @@ conda activate picam_sync_neuro
 
 3️⃣ Video Recording on both Pis:
 
-- VNC into both Pis and open a terminal in each one
+- VNC into both Pis
+- run [camera_preview.py](https://github.com/chgebhardt/picam_sync_neuro/blob/main/code/raspberry_pis/camera_preview.py) from Thonny or python editor of choice. You should be able to see the blinking LED.
+- open a terminal in each Pi
 - then modify the config.yaml according your needs (has to be the same on both Pis):
   ```
   cd ~/Desktop/picam_sync_neuro/code/raspberry_pis

@@ -62,7 +62,11 @@ conda activate picam_sync_neuro
 - Connect Raspberries rpi2>rpi1 via a [FTDI Serial TTL-232 USB Cable](https://www.adafruit.com/product/70) and a [female RS232-to-TTL converter](https://www.amazon.com/MAX3232-Connector-Converter-Equipment-Upgrades/dp/B07PFB4MHR?keywords=RS232+to+TTL+adapter&linkCode=ll2&linkId=068289c5d86a3fea3e85f853d1c90e97&psc=1&qid=1567698272&s=gateway&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTUxVTTJIUDJSTEJGJmVuY3J5cHRlZElkPUEwNTgzMzQ3M0NJRU1EUVRJMElVViZlbmNyeXB0ZWRBZElkPUEwNjQ1MTg5MUxQNFRXTVRFQ0RHTSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU%3D&sr=8-1-spons). Otherwise, I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
 - Set up the [Arduino as ISP](https://www.youtube.com/watch?v=muP1dp73Mdg) to miniaturize the blinking LED circuit on a breadboard.
-  ![LED circuit](images/arduino_breadboard.jpg)
+
+<p align="center">
+  <img src="images/arduino_breadboard.jpg" alt="breadboard" width="400">
+</p>
+
 - Configure DAQ board inputs for LED voltage recording.  
 *This depends very much on what kind of neural signal recording system you have. Most rigs will have a DAQ with a BNC input, so I soldered a [female pre-assembeled BNC](https://atlas-scientific.com/connectors/pre-assembled-female-bnc/) into the arduino circuit on the breadboard. Then it is just a matter of telling your DAQ which Input to listen to.*
   

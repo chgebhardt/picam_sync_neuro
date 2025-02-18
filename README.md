@@ -61,7 +61,7 @@ conda activate picam_sync_neuro
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
 - Set up the Arduino as ISP and connect the LED.
 - Configure DAQ board inputs for LED voltage recording.  
-This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC into the arduino circuit on the breadboard. Then it is just a matter of telling your DAQ which Input to listen to.
+*This depends very much on what kind of system you have. Most DAQs will have a BNC input so I soldered a female pre-assembeled BNC into the arduino circuit on the breadboard. Then it is just a matter of telling your DAQ which Input to listen to.*
   
 
 3️⃣ Video Recording on both Pis:

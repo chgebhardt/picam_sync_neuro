@@ -74,7 +74,7 @@ conda activate picam_sync_neuro
   <img src="images/female_BNC.jpg" alt="BNC" width="400">
 </p>
 
-- (Optional: Solder the LED circuit and BNC permanently to a breadboard)
+- (Optional: Solder the LED circuit and BNC permanently to a breadboard)  
   *Be careful, you wont see the 940nm LED blinking until you have everything put together and image it with a NOIR camera. A voltmeter might come in handy too.*
 
 - Then place the breadboard such that it 

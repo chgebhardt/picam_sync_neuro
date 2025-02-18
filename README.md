@@ -2,7 +2,7 @@
 
 📝 Overview
 
-This project enables millisecond precision synchronization of two Raspberry PiCamera video recordings from different angles and synchronizing them with each other and neural recordings. 
+This project enables millisecond precision synchronization of two Raspberry Pi Camera video recordings from different angles and synchronizing them with each other and neural recordings. 
 
 Achieving this requires:
 
@@ -12,11 +12,11 @@ Achieving this requires:
 
 - a DAQ board to record LED voltage and neural signals.  
 
-- Custom post-processing code to synchronize the PiCameras with the DAQ signals.  
+- Custom post-processing code to synchronize the Pi Cameras with the DAQ signals.  
 
 🚀 Features
 
-✅ Dual PiCamera synchronization with millisecond precision  
+✅ Dual Pi Camera synchronization with millisecond precision  
 ✅ Arduino-driven LED synchronization  
 ✅ DAQ board integration for neural signal alignment  
 ✅ Optional manual start of the recording scripts on the Raspberry Pis or automation via ansible   
@@ -26,7 +26,7 @@ Achieving this requires:
 
 Required Hardware
 
-2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with [**NO-IR** PiCamera modules](https://www.adafruit.com/product/3100) each  
+2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with [**NO-IR** Pi Camera modules](https://www.adafruit.com/product/3100) each  
 
 1× [FTDI Serial TTL-232 USB Cable](https://www.adafruit.com/product/70) and [female RS232-to-TTL converter](https://www.amazon.com/MAX3232-Connector-Converter-Equipment-Upgrades/dp/B07PFB4MHR?keywords=RS232+to+TTL+adapter&linkCode=ll2&linkId=068289c5d86a3fea3e85f853d1c90e97&psc=1&qid=1567698272&s=gateway&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTUxVTTJIUDJSTEJGJmVuY3J5cHRlZElkPUEwNTgzMzQ3M0NJRU1EUVRJMElVViZlbmNyeXB0ZWRBZElkPUEwNjQ1MTg5MUxQNFRXTVRFQ0RHTSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU%3D&sr=8-1-spons)
 
@@ -58,7 +58,7 @@ conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 
-- Setup raspberry Pis as rpi1 and rpi2 and connect the respective Picams.
+- Setup raspberry Pis as rpi1 and rpi2 and connect the respective Pi Cameras.
 - Connect Raspberries rpi2>rpi1 via the Serial TTL-232 connection. Otherwise, I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
 - Set up an [Arduino as ISP](https://www.notesandvolts.com/2013/01/fun-with-arduino-arduino-as-isp.html) to copy the [arduino script for a blinking LED](https://github.com/chgebhardt/picam_sync_neuro/tree/main/code/arduino) on the ATMEGA328P microcontroller.
@@ -75,9 +75,9 @@ conda activate picam_sync_neuro
 </p>
 
 - (Optional: Solder the LED circuit and BNC permanently to a breadboard)  
-  *Be careful, you wont see the 940nm LED blinking until you have everything put together and image it with a NOIR camera. A voltmeter might come in handy too.*
+  *Be careful, you wont be able to see the 940nm LED blinking until you can image it with a NOIR Pi Cameras. A voltmeter might come in handy too.*
 
-- Then place the breadboard such that it 
+- Finally, place the breadboard such that the LED can be imaged with both Pi Cameras. 
 
 3️⃣ Video Recording on both Pis:
 

@@ -128,7 +128,7 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
     ```   
   - start fetch_exp script on command line and follow the instructions:
     ```
-    ./fetch_exp.sh "dest_folder"
+    ./fetch_exp.sh "/home/<username>/Desktop/picam_sync_neuro/tests"
     ```
    
 - open jupyter notebook and start project initiation (sets up folders, converts the movies and extracts the image information of the binking LED)

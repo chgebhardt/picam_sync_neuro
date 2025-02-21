@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Check if destination folder argument is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <destination_folder>"
+    exit 1
+fi
+
+# Set destination folder from argument
+DEST_BASE="$1"
+
+# Ensure the destination directory exists
+mkdir -p "$DEST_BASE"
+
+# Configuration file
+CONFIG_FILE="connections.ini"
+
+# Prompt for user input
+echo -e "Experimenter (usually your initials): \c "
+read experimenter
+echo -e "Date (yyyymmdd): \c "
+read date
+echo -e "Experiment number (e.g. 01 or 12): \c "
+read exp_num
+
+# Define folder and path variables
+folder="${date}_e${exp_num}"
+path="Desktop/Behavior/${experimenter}/"
+
+# Create experiment-specific subdirectories inside destination
+DEST_PATH="${DEST_BASE}/${folder}/01_picams/01_raw"
+mkdir -p "$DEST_PATH"
+
+# Read and process each line in the configuration file
+while IFS=': ' read -r identifier ip port; do
+    if [[ -n "$identifier" && -n "$ip" && -n "$port" ]]; then
+        echo "Fetching from $identifier ($ip) on port $port..."
+        scp -P "$port" -r "pi@$ip:${path}${folder}_pic*/*.*" "$DEST_PATH"
+        
+        # Check if SCP was successful
+        if [ $? -ne 0 ]; then
+            echo "Error fetching from $identifier ($ip). Exiting."
+            exit 1
+        fi
+    else
+        echo "Invalid entry in $CONFIG_FILE: $identifier $ip $port"
+    fi
+done < "$CONFIG_FILE"
+
+echo "All files have been successfully fetched and stored in $DEST_PATH"
+

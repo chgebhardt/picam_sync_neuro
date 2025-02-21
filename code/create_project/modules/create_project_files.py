@@ -159,7 +159,7 @@ def generate_LED_values_csv(homedir, exp_dict):
                 video_path = folder + exp + '_' + picam_id + '.mp4'
                 
                 x1, x2, y1, y2 = select_rectangle_coordinates(video_path)
-
+                
                 input_video  = cv2.VideoCapture(video_path)
                 
                 frame_num = 0

@@ -114,9 +114,23 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
 ```
 
 
-📊 Data Processing & Synchronization (**coming soon!!!**)
+📊 Data Processing & Synchronization (**in progress!!!**)
 
-- retrieve the recording folders from the Pis (fetch.sh) -> date-e#
+- retrieve the recorded experiment folders from the Pis
+  - edit connections.ini such that it contains the IP addresses and ports of the Pis, e.g.:
+    ```
+    cd picam_sync_neuro/code/create_project/
+    nano connections.ini
+
+    replace:  
+    rpi1: 192.168.1.100:222
+    rpi2: 192.168.1.101:222
+    ```   
+  - start fetch_exp script on command line and follow the instructions:
+    ```
+    ./fetch_exp.sh "dest_folder"
+    ```
+   
 - open jupyter notebook and start project initiation (sets up folders, converts the movies and extracts the image information of the binking LED)
 - run analysis pipeline to synchronize neural signals with the video
 

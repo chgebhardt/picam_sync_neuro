@@ -122,7 +122,7 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
     cd picam_sync_neuro/code/create_project/
     nano connections.ini
 
-    replace:  
+    add this to connections.ini:  
     rpi1: 192.168.1.100:222
     rpi2: 192.168.1.101:222
     ```   

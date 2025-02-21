@@ -76,7 +76,7 @@ conda activate picam_sync_neuro
 </p>
 
 - (Optional: Solder the LED circuit and BNC permanently to a breadboard)  
-  *Be careful, you wont be able to see the 940nm LED blinking until you can image it with a NOIR Pi Cameras. A voltmeter and/or Oscilloscope might come in handy too.*
+  *Be careful, you wont be able to see the 940nm LED blinking unless you image the LED with the NOIR Pi Cameras. A voltmeter and/or Oscilloscope might come in handy too.*
 
 - Finally, place the breadboard such that the LED can be imaged with both Pi Cameras. 
 

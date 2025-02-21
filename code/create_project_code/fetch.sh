@@ -30,4 +30,3 @@ while IFS=': ' read -r identifier ip port; do
 done < "$CONFIG_FILE"
 
 echo "All files have been fetched and stored in $dest_base"
-

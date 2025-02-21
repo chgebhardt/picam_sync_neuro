@@ -85,10 +85,6 @@ if __name__ == '__main__':
     # Create a new experiment folder and get its ID
     experiment_path, new_experimentID = experiment_manager.create_experiment_folder(configuration_parameters)
 
-    # Copy this script to the experiment folder with a timestamped filename
-    script_backup_name = f"{dt.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_main.py"
-    shutil.copy(__file__, os.path.join(experiment_path, script_backup_name))
-
     # Save metadata file in the experiment folder
     experiment_manager.write_metadata(experiment_path, new_experimentID, configuration_parameters)
 

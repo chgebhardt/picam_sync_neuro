@@ -133,7 +133,8 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
    
 - project initiation:
   - open jupyter notebook and start project_initiation.ipynb, choose datadir (=folder to where fetch_exp transferred the experiment files from the Pis), fps (frames per second) and the experiment identifier (yyyymmdd_e#)  
-    *this converts the h264 movies and extracts the intensity values of the blinking LEDs per PiCamera (needed for synching)*
+    *this converts the h264 movies to mp4 and extracts the intensity values of the blinking LEDs per PiCamera to csv files (needed for synching)*  
+
 - run analysis pipeline to synchronize neural signals with the video
 
 📜 License

@@ -126,14 +126,14 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
     rpi1: 192.168.1.100:222
     rpi2: 192.168.1.101:222
     ```   
-  - start fetch_exp script on command line and follow the instructions:
+  - start fetch_exp script specifying a local data directory on the command line and follow the instructions:
     ```
     ./fetch_exp.sh "/home/<username>/Desktop/picam_sync_neuro/tests"
     ```
    
 - project initiation:
-  - open jupyter notebook and start project_initiation.ipynb
-    * sets up folders, converts the movies and extracts the image information of the binking LED)
+  - open jupyter notebook and start project_initiation.ipynb, choose datadir (=folder to where fetch_exp transferred the experiment files from the Pis), fps (frames per second) and the experiment identifier (yyyymmdd_e#)*
+    * this converts the h264 movies and extracts the intensity values of the blinking LEDs per PiCamera (needed for synching)
 - run analysis pipeline to synchronize neural signals with the video
 
 📜 License

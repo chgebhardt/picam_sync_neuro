@@ -13,79 +13,55 @@ import pandas as pd
 import numpy as np
 
 
-def load_fp_data(homedir, expID, voltage_sampling_rate_Hz=3000, verbose=True):
+def load_daq_data(homedir, expID, voltage_sampling_rate_Hz=3000, verbose=True):
     """
-    Loads or initializes FP data for the given experiment. If a pickle file exists, it loads the data.
-    Otherwise, it initializes a new FP data structure and optionally saves it as a pickle file.
+    Loads or initializes DAQ data for the given experiment. If a pickle file exists, it loads the data.
+    Otherwise, it initializes a new DAQ data structure and optionally saves it as a pickle file.
     """
     function_name = inspect.currentframe().f_code.co_name
-    print(f'\n\n[{datetime.now():%H:%M:%S}] ({function_name}) Loading FP data for experiment {expID}')
+    print(f'\n\n[{datetime.now():%H:%M:%S}] ({function_name}) Loading DAQ data for experiment {expID}')
 
     # Attempt to load an existing pickle file
-    fp_dict = load_fp_pickle_file(homedir, expID)
-    if not fp_dict:
+    daq_dict = load_daq_pickle_file(homedir, expID)
+    if not daq_dict:
         # Initialize data structure
-        fp_dict = initialize_fp_dict(homedir, expID, voltage_sampling_rate_Hz, verbose)
+        daq_dict = initialize_daq_dict(homedir, expID, voltage_sampling_rate_Hz, verbose)
 
     else:
-        print(f"\n[{datetime.now():%H:%M:%S}] ({function_name}) Found and loaded existing FP data previously saved on {fp_dict['fp_data_save_datetime']}!")
+        print(f"\n[{datetime.now():%H:%M:%S}] ({function_name}) Found and loaded existing DAQ data previously saved on {daq_dict['daq_data_save_datetime']}!")
 
-    # Print a summary of the loaded or newly created FP data
-    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) FP Acquisition SUMMARY:')
-    print_fp_metadata_summary(fp_dict)
+    # Print a summary of the loaded or newly created DAQ data
+    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) DAQ Acquisition SUMMARY:')
+    print_daq_metadata_summary(daq_dict)
 
-    return fp_dict
+    return daq_dict
 
-def initialize_fp_dict(homedir, expID, voltage_sampling_rate_Hz=3000, verbose=True):
+def initialize_daq_dict(homedir, expID, voltage_sampling_rate_Hz=3000, verbose=True):
     """
-    Initializes the FP data dictionary from scratch if no pickle file exists.
+    Initializes the daq data dictionary from scratch if no pickle file exists.
     """
     function_name = inspect.currentframe().f_code.co_name
     
-    # Define the FP folder
-    fp_folder = os.path.join(homedir, expID, '02_fp')
+    # Define the daq data folder
+    daq_folder = os.path.join(homedir, expID, '02_fp')
 
     # Initialize the dictionary
-    fp_dict = {
+    daq_dict = {
         'expID': expID,
-        'fp_data_save_datetime': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        'fp_frame_analysis_run': False, # set the 'fp frame analysis run' flag
-        'fp_fluorescence_extraction_run': False # set the 'fp_fluorescence_normalization_run' flag
+        'daq_data_save_datetime': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'daq_frame_analysis_run': False, # set the 'daq frame analysis run' flag
+        'daq_fluorescence_extraction_run': False # set the 'daq_fluorescence_normalization_run' flag
     }
 
-    # Load the FP calibration file
-    fp_calibration_data_dict = load_and_process_fp_calibration_file(fp_folder)
-
-    # Find and load stimulation settings (if laser stimulation settings where automatically changed during one acquisition) 
-    fp_opto_laser_parameter_df = load_automated_opto_stimulation_settings(fp_folder)
-
-    # Load FP metadata
-    fp_dict['fp_metadata'] = load_fp_metadata(fp_folder, 'FP3002Config.xml', fp_opto_laser_parameter_df)
-
-    # Load raw interleaved fluorescence data
-    fp_interleaved_data = load_fluorescence_data(expID, fp_folder, fp_dict)
-
     # Load (and preprocess) digital IOs
-    digital_IOs, arduino_voltage_df, opto_pulse_train_timing = load_digital_IO_data(fp_folder, voltage_sampling_rate_Hz, fp_dict, verbose)
-
-    # Add laser stimulation parameters (like Amplitude, Frequency etc) to pulse train timing
-    opto_pulse_train_timing = add_laser_stimulation_parameters_to_pulse_train_timing(fp_dict, opto_pulse_train_timing, fp_opto_laser_parameter_df)
-
-    # FIBER1: Map LaserAmplitude_perc (in percent) to LaserPower_uW (in uW), this happens cyclically if more stimuli than LaserAmplitude_perc entries  
-    opto_pulse_train_timing = map_amplitude_to_laser_power(opto_pulse_train_timing, fp_calibration_data_dict)
-
-    # Save FP data in the dictionary
-    fp_dict['fp_timing'] = {
-        'fp_frame_info': fp_interleaved_data[['fp_time_sec', 'Flags']],
+    digital_IOs, arduino_voltage_df, opto_pulse_train_timing = load_digital_IO_data(daq_folder, voltage_sampling_rate_Hz, daq_dict, verbose)
+    
+    # Save daq data in the dictionary
+    daq_dict['daq_timing'] = {
         'digital_IOs': digital_IOs,
         'arduino_voltage': arduino_voltage_df,
-        'opto_pulse_train_timing': opto_pulse_train_timing}
-    
-    fp_dict['fp_fluorescence'] = {'fp_interleaved_data': fp_interleaved_data}
 
-    fp_dict['opto_laser_parameters'] = fp_opto_laser_parameter_df
-
-    return fp_dict
+    return daq_dict
 
 
 def load_automated_opto_stimulation_settings(fp_folder):

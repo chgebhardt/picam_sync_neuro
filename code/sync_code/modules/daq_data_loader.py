@@ -49,7 +49,7 @@ def initialize_daq_dict(homedir, expID, voltage_sampling_rate_Hz=3000, verbose=T
     }
 
     # Load (and preprocess) digital IOs
-    digital_IOs, arduino_voltage_df, opto_pulse_train_timing = load_digital_IO_data(daq_folder, voltage_sampling_rate_Hz, daq_dict, verbose)
+    digital_IOs, arduino_voltage_df = load_digital_IO_data(daq_folder, voltage_sampling_rate_Hz, daq_dict, verbose)
     
     # Save daq data in the dictionary
     daq_dict['daq_timing'] = {
@@ -73,39 +73,22 @@ def load_digital_IO_data(daq_folder, voltage_sampling_rate_Hz, daq_dict, verbose
         
     function_name = inspect.currentframe().f_code.co_name
     
-    # Detect file version based on filenames
-    old_file = next((f for f in os.listdir(daq_folder) if 'daq_arduino_ttl.csv' in f), None)
-    new_file = next((f for f in os.listdir(daq_folder) if 'daq_digital_IOs.csv' in f), None)
-
-    # Load data based on file type
-    if old_file:
-        file_path = os.path.join(daq_folder, old_file)
-        print(f"[{datetime.now():%H:%M:%S}] ({function_name}) Detected \033[38;5;208m\033[1mold FP3002 firmware\033[0m file: {old_file}")
-        digital_IO_data = load_digitalIO_data_old_firmware(file_path)
     
-    elif new_file:
-        file_path = os.path.join(fp_folder, new_file)
-        print(f"[{datetime.now():%H:%M:%S}] ({function_name}) Detected \033[38;5;208m\033[1mnew FP3002 firmware\033[0m file for digitalIOs: {new_file}")
-        digital_IO_data = load_digitalIO_data_new_firmware(file_path)
+    file_path = os.path.join(daq_folder, new_file)
+    digital_IO_data = load_digitalIO_data_new_firmware(file_path)
     
-    else:
-        raise FileNotFoundError(f"No recognized digital IO data files found in {fp_folder}.")
-
     # Split the channels and process the data
     digital_IO_channels = split_digital_IO_channels(digital_IO_data)
 
     # Process the data from Input0 (= blinking LED)  
-    arduino_voltage_df  = process_Input0(fp_folder, digital_IO_channels, voltage_sampling_rate_Hz, verbose)
-
-    # Process Optostimulation Data (laser pulses etc) and adds data from automated stimulation parameter changes
-    opto_pulse_train_timing  = process_Output1(digital_IO_channels, fp_dict)
+    arduino_voltage_df  = process_Input0(daq_folder, digital_IO_channels, voltage_sampling_rate_Hz, verbose)
     
     # Log results
     function_name = inspect.currentframe().f_code.co_name
     unique_items = digital_IO_data['DigitalIOName'].unique()
     print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) Digital IO channel data from {unique_items} successfully loaded!')
 
-    return digital_IO_channels, arduino_voltage_df, opto_pulse_train_timing
+    return digital_IO_channels, arduino_voltage_df
 
 
 def load_digitalIO_data_old_firmware(file_path):

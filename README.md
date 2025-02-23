@@ -122,7 +122,7 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
     cd picam_sync_neuro/code/create_project/
     nano connections.ini
 
-    add this to connections.ini:  
+    add something like this to connections.ini:  
     rpi1: 192.168.1.100:222
     rpi2: 192.168.1.101:222
     ```   
@@ -131,7 +131,9 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
     ./fetch_exp.sh "/home/<username>/Desktop/picam_sync_neuro/tests"
     ```
    
-- open jupyter notebook and start project initiation (sets up folders, converts the movies and extracts the image information of the binking LED)
+- project initiation:
+  - open jupyter notebook and start project_initiation.ipynb
+    * sets up folders, converts the movies and extracts the image information of the binking LED)
 - run analysis pipeline to synchronize neural signals with the video
 
 📜 License

@@ -69,19 +69,18 @@ def convert_h264_to_mp4(exp_dict, fps = 40):
 def select_rectangle_coordinates(video_path, num_frames=50):
     '''
     Allows the user to select a rectangle on an average frame generated from the first `num_frames` of the video.
-    (press 'r' to redo drawing the rectangl or press 'q' to save the rectangle)
-    
-    Parameters:
-        input_video (cv2.VideoCapture): Video capture object.
-        num_frames (int, optional): Number of frames to use for generating the average frame. Default is 50.
-    
+    Press:
+    - 'r' to redo selection
+    - 'Enter' to confirm selection
+    - 'q' or 'Esc' to quit at any time
+
     Returns:
-        Tuple (x1, x2, y1, y2): Coordinates of the selected rectangle (top-left and bottom-right corners).
+        Tuple (x1, x2, y1, y2) or None if quit.
     '''
-    
+
     print(video_path)
     input_video  = cv2.VideoCapture(video_path)
-    
+
     frame_count = 0
     sum_frame   = None
 
@@ -96,7 +95,7 @@ def select_rectangle_coordinates(video_path, num_frames=50):
         
         sum_frame += frame
         frame_count += 1
-        
+
     average_frame = sum_frame / frame_count
     frame_copy    = np.uint8(average_frame)
 
@@ -121,19 +120,32 @@ def select_rectangle_coordinates(video_path, num_frames=50):
     cv2.setMouseCallback('Select Rectangle', draw_rectangle)
 
     while True:
-        cv2.imshow('Select Rectangle', frame_copy)
+        frame_display = frame_copy.copy()
+        
+        # Display instructions
+        cv2.putText(frame_display, "Select ROI rectangle via mouse-click", (10, 20), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 0, 0), 1, cv2.LINE_AA)
+        cv2.putText(frame_display, "Press 'r' to redo ROI selection", (10, 40), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 0, 0), 1, cv2.LINE_AA)
+        cv2.putText(frame_display, "Press 'Enter' to confirm ROI selection", (10, 60), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 0, 0), 1, cv2.LINE_AA)
+        cv2.putText(frame_display, "Press 'q' to quit", (10, 80), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 0, 0), 1, cv2.LINE_AA)
+
+        cv2.imshow('Select Rectangle', frame_display)
         key = cv2.waitKey(1) & 0xFF
 
-        if key == ord('r'): # press 'r' to redo drawing the rectangle
+        if key == ord('r'):  # Redo selection
             frame_copy = np.uint8(average_frame)
             drawing = False
-        elif key == ord('q') or key == 27: # press 'q' to save the rectangle
+        elif key == ord('\r') or key == ord('\n'):  # Press Enter to confirm
             break
+        elif key == ord('q') or key == 27:  # Press 'q' or 'Esc' to quit immediately
+            cv2.destroyAllWindows()
+            input_video.release()
+            return None  # Return None to indicate quitting
 
     cv2.destroyAllWindows()
-    input_video.release() 
-
+    input_video.release()
+    
     return x1, x2, y1, y2
+
 
 
 def generate_LED_values_csv(homedir, exp_dict):
@@ -158,8 +170,14 @@ def generate_LED_values_csv(homedir, exp_dict):
                 folder     = exp_folder + '/01_picams/02_conv/'
                 video_path = folder + exp + '_' + picam_id + '.mp4'
                 
-                x1, x2, y1, y2 = select_rectangle_coordinates(video_path)
-                
+                coords = select_rectangle_coordinates(video_path)
+                if coords is None:
+                    print("User quit before selecting a rectangle.")
+                    break
+                else:
+                    x1, x2, y1, y2 = coords
+                    print(f"Selected rectangle: {x1}, {y1}, {x2}, {y2}")
+
                 input_video  = cv2.VideoCapture(video_path)
                 
                 frame_num = 0

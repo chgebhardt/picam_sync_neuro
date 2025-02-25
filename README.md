@@ -137,8 +137,9 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
 
 - open analysis_pipeline.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  
   - this script loads the PiCamera data (frame timing and extracted LED intensity values / LED blink timing from all Picameras) and saves them in a dictionary picam_dict
-  - loading the DAQ timing data might be different depending on the way you can access that data from the DAQ:  
-    *Remember you are recording the LED voltage (a binary signal, either high or low) on a DAQ Input. Very often the DAQ just discretely records signal changes from high to low or vice versa. In this case we need to generate a "continuous" signal from this discrete data first at a defined sampling frequency. If the DAQ already records a "continous" voltage signal we can skip this step.)* 
+  - accessing the LED voltage as seen by the DAQ might be different depending on your system:  
+    *Here I assume that you saved the LED voltage in a csv file called daq_arduino_voltage.csv. This file contains two columns 'daq_time_sec' and 'voltage' and each row contains float128 values*
+  -  
 
 📜 License
 

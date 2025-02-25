@@ -136,7 +136,7 @@ ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass 
     *this script converts the h264 movies to mp4 (requires ffmpeg) and extracts the intensity values of the blinking LEDs per PiCamera to csv files (needed for synchronization)*  
 
 - open analysis_pipeline.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  
-  - this script loads first the PiCamera data (frame timing and extracted LED intensity values / LED blink timing from all Picameras) and saves in a dictionary picam_dict
+  - this script loads the PiCamera data (frame timing and extracted LED intensity values / LED blink timing from all Picameras) and saves them in a dictionary picam_dict
   - loading the DAQ timing data might be different depending on the way you can access that data from the DAQ:  
     *Remember you are recording the LED voltage (a binary signal, either high or low) on a DAQ Input. Very often the DAQ just discretely records signal changes from high to low or vice versa. In this case we need to generate a "continuous" signal from this discrete data first at a defined sampling frequency. If the DAQ already records a "continous" voltage signal we can skip this step.)* 
 

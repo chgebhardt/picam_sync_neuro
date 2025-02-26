@@ -20,24 +20,6 @@ def analyze_picam_times(homedir, expID, picam_dict, verbose=False):
     results = {}
     picam_list = find_picams(homedir, expID)
     
-    # Check if analysis has already been performed
-    if picam_dict.get('picam_frame_analysis_run', True):
-        print(f"\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAM Frame Analysis already completed for Experiment {picam_dict['expID']}. Skipping re-analysis.")
-
-        print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAM Frame Analysis SUMMARY:')
-        
-        for picam_id in picam_list:
-            
-            total_frames = len(picam_dict[picam_id]['picam_timing']['picam_frame_info'].index)
-            dropped_frames_df = picam_dict[picam_id]['picam_timing']['dropped_frames_df']
-            total_dropped = int(np.sum(dropped_frames_df['num_dropped_frames'].to_numpy()))
-            
-            print(f"\n   Frame analysis for {picam_id}:")
-            print(f"      Total number of picam frames found: {total_frames}")
-            print(f"      Total number of dropped picam frames: {total_dropped}")
-        
-        return picam_dict
-
     print(f"\n\n[{datetime.now():%H:%M:%S}] ({function_name}) Analyzing picam frame times for experiment {picam_dict['expID']}:")
 
     for picam_id in picam_list:

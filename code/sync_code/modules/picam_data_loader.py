@@ -3,37 +3,25 @@ from datetime import datetime
 import inspect
 import os
 import re
-from pathlib import Path
-import pickle
 
 # Third-Party Libraries
 import numpy as np
 import pandas as pd
-import h5py
 from scipy.stats import zscore
 from scipy.signal import find_peaks
-import glob
 
 
 def load_picam_data(homedir, expID, verbose=True):
     """
     Detects how many picams there are and creates a nested dictionary for each camera.
-    Optionally saves the dictionary to a pickle file if `save=True`.
     """
     function_name = inspect.currentframe().f_code.co_name
     print(f'[{datetime.now():%H:%M:%S}] ({function_name}) Loading picamera data for experiment {expID}')
 
-    # Attempt to load an existing pickle file
-    picam_dict = load_picam_pickle_file(homedir, expID)
-    if not picam_dict:
-        
-        # Initialize data structure
-        picam_list = find_picams(homedir, expID)
-        picam_dict = initialize_picam_dict(homedir, expID, picam_list)
+    # Initialize data structure
+    picam_list = find_picams(homedir, expID)
+    picam_dict = initialize_picam_dict(homedir, expID, picam_list)
 
-    else:
-        print(f"\n[{datetime.now():%H:%M:%S}] ({function_name}) Found and loaded existing picam data previously saved on {picam_dict['picam_data_save_datetime']}!")
-    
     print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAM Acquisition SUMMARY:')
     
     for picam_id in picam_dict['picam_list']:
@@ -48,16 +36,14 @@ def load_picam_data(homedir, expID, verbose=True):
 
 def initialize_picam_dict(homedir, expID, picam_list):
     """
-    Initializes the picam dictionary from scratch if no pickle file exists.
+    Initializes the picam dictionary.
     """
     function_name = inspect.currentframe().f_code.co_name
     
     picam_dict = {
         'expID': expID,
-        'picam_data_save_datetime': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'picam_data_generated_datetime': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'picam_list': picam_list,
-        'experiment_type': [],
-        'picam_frame_analysis_run': False # set the 'picam frame analysis run' flag
     }
 
     for picam_id in picam_list:
@@ -305,52 +291,3 @@ def load_picam_LED_data(homedir, expID, picam_id, picam_frames):
         # Return None for both if no file is found
         print(f'[{datetime.now():%H:%M:%S}] ({function_name}) \033[38;5;208m\033[1mLED intensity values not found! Run project_initiation.ipynb first.\033[0m')
         return None, None  # Return None for both
-
-
-def load_picam_pickle_file(homedir, expID):
-    """
-    Loads a pickle file for the given experiment, if it exists.
-    """
-    pickle_filepath = os.path.join(homedir, expID, '04_pickle_snapshots', f'{expID}_picam_dict.pickle')
-    
-    if os.path.exists(pickle_filepath):
-        with open(pickle_filepath, 'rb') as f:
-            return pickle.load(f)
-    
-    return None
-
-
-def save_picam_pickle_file(homedir, expID, picam_dict):
-    """
-    Saves the given dictionary as a pickle file.
-
-    Args:
-        homedir (str): Base directory for the experiment.
-        expID (str): Experiment ID.
-        picam_dict (dict): Dictionary to save.
-    """
-    function_name = inspect.currentframe().f_code.co_name
-
-    pickle_folder = os.path.join(homedir, expID, '04_pickle_snapshots')
-    pickle_filepath = os.path.join(pickle_folder, f'{expID}_picam_dict.pickle')
-
-    os.makedirs(pickle_folder, exist_ok=True)
-
-    # Handle existing file
-    if os.path.exists(pickle_filepath):
-        existing_dict = load_picam_pickle_file(homedir, expID)
-        if existing_dict:
-            existing_status = existing_dict.get('picam_frame_analysis_run', None)
-            new_status = picam_dict.get('picam_frame_analysis_run', None)
-
-            if existing_status is False and new_status is True:
-                print(f"\n[{datetime.now():%H:%M:%S}] ({function_name}) Overwriting existing file because 'picam_frame_analysis_run' is False in the existing file and True in the new dictionary.")
-            else:
-                print(f"\n[{datetime.now():%H:%M:%S}] ({function_name}) File already exists. Saving aborted.")
-                return
-
-    # Save the new file
-    with open(pickle_filepath, 'wb') as f:
-        pickle.dump(picam_dict, f, protocol=pickle.HIGHEST_PROTOCOL)
-
-    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAM Data saved as pickle file!')

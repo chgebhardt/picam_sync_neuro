@@ -25,7 +25,7 @@ def synchronize_daq_picameras(datadir, expID, picam_dict, daq_dict, verbose=Fals
     sync_dict = initialize_sync_dict(datadir, expID, picam_dict, daq_dict, verbose)
 
     # Print sync summary stats
-    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAM-DAQ synchronization SUMMARY:\n')
+    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAMERA-DAQ synchronization SUMMARY:\n')
 
     for picam_id in sync_dict['picam_list']:
         print(f'            {picam_id}-DAQ lag (sec): {sync_dict[picam_id]["lag_picam_sec"] - daq_dict["daq_timing"]["arduino_voltage_df"].iloc[0, 0]:.4f}')
@@ -111,7 +111,7 @@ def calculate_lag_xcorr(df1, df2, new_timebase_s=0.01):
     df2_resampled = resample_signal(df2,    'daq_time_sec', 'voltage',     new_timebase_s)
     
     lag_picam_sec, _ = xcorr(df1_resampled, df2_resampled)
-    lag_picam_sec   += df2['daq_time_sec'].iloc[0]  # Add the first timestamp from df2 to the lag
+    lag_picam_sec   += df1['frame_time_sec'].iloc[0]  # Add the first timestamp from df1 to the lag
 
     return lag_picam_sec
 
@@ -152,7 +152,7 @@ def xcorr(df1, df2):
 
     # Find the lag corresponding to the maximum correlation coefficient
     lag         = lagsOut[np.argmax(corrCoeff)]
-    lag_pic_sec = time_df1[lag]
+    lag_pic_sec = time_df2[lag]
 
     return lag_pic_sec, df1
 
@@ -183,7 +183,7 @@ def determine_picam_daq_drift_and_plot(df1, df2, lag_picam_sec, picam_id, verbos
     
     # Step 2: Find DAQ-edge-LED-blink pairs
     df = find_edge_blink_pairs(df1, df2)
-    print(f"[{datetime.now():%H:%M:%S}] ({function_name}) {len(df)} Blink-Edges pairs found for {picam_id}.")
+    print(f"[{datetime.now():%H:%M:%S}] ({function_name}) {len(df)} Edge-Blink pairs found for {picam_id}.")
     
     # Step 3: Find and remove outliers by fitting a linear curve and then replace the outliers by their predicted value
     time_diff_threshold_sec = 0.03
@@ -205,7 +205,7 @@ def determine_picam_daq_drift_and_plot(df1, df2, lag_picam_sec, picam_id, verbos
         
         # Print model coefficients
         print(f"\n[{datetime.now():%H:%M:%S}] ({function_name}) {picam_id:} slope:     {model.coef_[0]:.6f}\n"
-              f"{' ' * 47}{picam_id:} intercept:  {model.intercept_:.6f}\n")
+              f"{' ' * 48}{picam_id:} intercept:  {model.intercept_:.6f}\n")
 
         # Step 7: Plotting the results
         # Create a figure and axes for two subplots
@@ -225,7 +225,7 @@ def determine_picam_daq_drift_and_plot(df1, df2, lag_picam_sec, picam_id, verbos
         
         # Add a multi-line textbox in the lower left corner of axs[0]
         textbox_text = (
-            f'Above the grey line, the {picam_id} signal was acquired faster \nthan the DAQ signal and vice versa below the grey line.\n\nReversal timepoint: {intersection_time:.1f} sec'
+            f'Above y=0 (the grey line), the {picam_id} signal was acquired faster \nthan the DAQ signal and slower below the grey line.\n\nReversal timepoint: {intersection_time:.1f} sec'
         )
         
         textbox = axs[0].text(
@@ -293,7 +293,7 @@ def find_edge_blink_pairs(df1, df2):
     numpy_df2 = df2.loc[:,'daq_time_sec'].to_numpy() # time of the DAQ edges
 
     # correct numpy_df1 if picam started earlier than DAQ or if PiCamera ran longer than DAQ 
-    # (for DAQ-non-overlapping blinks no valid edge-blink pairs exist and the 
+    # (for DAQ-non-overlapping blinks no valid Edge-Blink pairs exist and the 
     # find_outliers_regression function doesnt work properly)
     
     # Find the indices where numpy_df1 overlaps with numpy_df2
@@ -342,7 +342,7 @@ def find_outliers_regression(df, picam_id, time_diff_threshold_sec = 0.03):
     outlier_indices     = np.where(condition)[0]
     
     print(f"[{datetime.now():%H:%M:%S}] ({find_outliers_regression.__name__}) "
-      f"{len(outlier_indices)} outlier Blink-Edge pairs found and replaced for {picam_id} "
+      f"{len(outlier_indices)} outlier Edge-Blink pairs found and replaced for {picam_id} "
       f"\n{' ' * 38}using a time difference threshold of \u00b1{time_diff_threshold_sec*1000:.2f} msecs!")
 
     # Replace outliers with model prediction
@@ -404,7 +404,32 @@ def find_closest_picam_frame(daq_time_sec, picam_LEDsignal_drft_corr):
 
 
 def plot_picam_daq_sync_data(datadir, expID, picam_dict, daq_dict, sync_dict, xmin, xmax):
+    """
+    Description:
+    This function visualizes the synchronization of PiCamera recordings with DAQ (Data Acquisition) system timestamps 
+    using LED blinking as a reference. It plots the Arduino-controlled LED voltage recorded by the DAQ, 
+    detected edges (on/off transitions), and the extracted LED intensity from PiCamera recordings.
     
+    Parameters:
+    - datadir (str): Directory containing experiment data.
+    - expID (str): Unique identifier for the experiment.
+    - picam_dict (dict): Dictionary containing PiCamera metadata.
+    - daq_dict (dict): Dictionary containing DAQ system timing and recorded signals.
+    - sync_dict (dict): Dictionary containing synchronization results, including drift-corrected LED signals.
+    - xmin (float): Minimum x-axis limit (DAQ time in seconds).
+    - xmax (float): Maximum x-axis limit (DAQ time in seconds).
+    
+    Plot Details:
+    - The DAQ-recorded Arduino LED voltage is plotted as a continuous line.
+    - Detected edge timestamps from the DAQ are marked with red circles.
+    - Each PiCamera’s extracted LED signal (drift-corrected) is plotted with an offset for clarity.
+    - Detected blinks in each PiCamera’s signal are marked with distinct symbols.
+    
+    Returns:
+    - None (displays the plot).
+    
+    """
+
     arduino_voltage    = daq_dict['daq_timing']['arduino_voltage_df']
     arduino2daq_edges  = daq_dict['daq_timing']['arduino2daq_edges_df']
     
@@ -448,4 +473,58 @@ def plot_picam_daq_sync_data(datadir, expID, picam_dict, daq_dict, sync_dict, xm
                    ); 
         axs.legend(fontsize=11, loc='upper right')
         
+    return
+
+
+def plot_picam_daq_sync_data(datadir, expID, picam_dict, daq_dict, sync_dict):
+    """
+    Plots synchronized data from PiCameras and DAQ recordings.
+
+    This function creates a figure with two subplots displaying the Arduino LED voltage,
+    detected edge timestamps, and processed LED signals from PiCameras. The subplots
+    show two time intervals: one centered around the first detected LED signal and the
+    other around the last detected LED signal.
+
+    Parameters:
+    datadir (str): Path to the data directory.
+    expID (str): Experiment identifier.
+    picam_dict (dict): Dictionary containing PiCamera data.
+    daq_dict (dict): Dictionary containing DAQ timing and voltage data.
+    sync_dict (dict): Dictionary containing synchronization data for PiCameras.
+
+    Returns:
+    None: The function generates and displays the plots.
+    """
+    arduino_voltage    = daq_dict['daq_timing']['arduino_voltage_df']
+    arduino2daq_edges  = daq_dict['daq_timing']['arduino2daq_edges_df']
+    
+    picam_list         = find_picams(datadir, expID)
+    picam_blink_marker = ['s', 'x']
+    
+    fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(20,8), constrained_layout=True)
+    fig.suptitle('Experiment ID: ' + expID, fontsize=20)
+    
+    for idx, picam_id in enumerate(picam_list):
+        picam_LED_corr        = sync_dict[picam_id]['picam_LEDsignal_drft_corr']
+        picam_LED_blinks_corr = sync_dict[picam_id]['picam_LED_blinks_drft_corr']
+        
+        xlim1_min = picam_LED_corr['daq_time_sec'].iloc[0] - 10
+        xlim1_max = picam_LED_corr['daq_time_sec'].iloc[0] + 10
+        xlim2_min = picam_LED_corr['daq_time_sec'].iloc[-1] - 10
+        xlim2_max = picam_LED_corr['daq_time_sec'].iloc[-1] + 10
+        
+        for ax, xmin, xmax in zip(axs, [xlim1_min, xlim2_min], [xlim1_max, xlim2_max]):
+            ax.plot(arduino_voltage['daq_time_sec'], arduino_voltage['voltage'], linewidth=2, label='arduino LED voltage')
+            ax.plot(arduino2daq_edges['daq_time_sec'], arduino2daq_edges['edges'], 'ro', markersize=10, markerfacecolor='none', label='edge timestamps')
+            
+            ax.plot(picam_LED_corr['daq_time_sec'], picam_LED_corr['LED_ROI_avg'] + 3.5*idx+2.5, label=picam_id + ': normalized LED ROI average, aligned & drift corrected')
+            ax.plot(picam_LED_blinks_corr['daq_time_sec'], picam_LED_blinks_corr['blinks'] + 3.5*idx+2.5, 'k', markersize=8, marker=picam_blink_marker[idx], linestyle='', label=picam_id + ': on/off blinks, aligned & drift-corrected')
+            
+            ax.tick_params(axis='both', which='major', labelsize=15)
+            ax.set_xlim(xmin, xmax)
+            ax.set_ylim(-0.5, 11)
+            ax.set_xlabel('daq time in sec', fontsize=19)
+            ax.set_ylabel('normalized LED intensity and voltage in a.u.', fontsize=19)
+            ax.legend(fontsize=11, loc='upper right')
+    
     return

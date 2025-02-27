@@ -1,0 +1,5 @@
+experimenter : 'CG'                    # experimenter initials in capital letters
+exp_num: '01'                          # '01', '02' etc.
+video_duration_mins: 1                 # in minutes
+camera_preview: True                   # if True, picams are displaying a review, if False no picam displays a review 
+illumination: 'RL'                     # # IR or dimmed room light (RL)

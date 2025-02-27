@@ -13,7 +13,7 @@ DEST_BASE="$1"
 mkdir -p "$DEST_BASE"
 
 # Configuration file
-CONFIG_FILE="connections.ini"
+CONFIG_FILE="$(dirname "$0")/../config/connections.ini"
 
 # Prompt for user input
 echo -e "Experimenter (usually your initials): \c "
@@ -32,8 +32,17 @@ DEST_PATH="${DEST_BASE}/${folder}/01_picams/01_raw"
 mkdir -p "$DEST_PATH"
 
 # Read and process each line in the configuration file
-while IFS=': ' read -r identifier ip port; do
-    if [[ -n "$identifier" && -n "$ip" && -n "$port" ]]; then
+while IFS=' ' read -r identifier rest; do
+    if [[ "$identifier" == "["* ]] || [[ -z "$identifier" ]]; then
+        # Skip section headers and empty lines
+        continue
+    fi
+    
+    # Extract parameters using regex
+    ip=$(echo "$rest" | grep -oP 'ansible_host=\K[0-9.]+')
+    port=$(echo "$rest" | grep -oP 'ansible_port=\K[0-9]+')
+
+    if [[ -n "$ip" && -n "$port" ]]; then
         echo "Fetching from $identifier ($ip) on port $port..."
         scp -P "$port" -r "pi@$ip:${path}${folder}_pic*/*.*" "$DEST_PATH"
         
@@ -43,7 +52,7 @@ while IFS=': ' read -r identifier ip port; do
             exit 1
         fi
     else
-        echo "Invalid entry in $CONFIG_FILE: $identifier $ip $port"
+        echo "Invalid entry in $CONFIG_FILE: $identifier $rest"
     fi
 done < "$CONFIG_FILE"
 

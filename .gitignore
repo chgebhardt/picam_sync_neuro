@@ -44,6 +44,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.gitignore.io/api/linux,macos
+code/config/connections.ini
 
-code/host_ansible_schduler/inventory.ini
+# End of https://www.gitignore.io/api/linux,macos

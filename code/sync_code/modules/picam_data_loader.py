@@ -22,7 +22,7 @@ def load_picam_data(homedir, expID, verbose=True):
     picam_list = find_picams(homedir, expID)
     picam_dict = initialize_picam_dict(homedir, expID, picam_list)
 
-    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAM Acquisition SUMMARY:')
+    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PiCamera Acquisition SUMMARY:')
     
     for picam_id in picam_dict['picam_list']:
         print_metadata_frames_summary(

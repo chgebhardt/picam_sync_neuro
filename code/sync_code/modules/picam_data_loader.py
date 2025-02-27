@@ -16,7 +16,7 @@ def load_picam_data(homedir, expID, verbose=True):
     Detects how many picams there are and creates a nested dictionary for each camera.
     """
     function_name = inspect.currentframe().f_code.co_name
-    print(f'[{datetime.now():%H:%M:%S}] ({function_name}) Loading picamera data for experiment {expID}')
+    print(f'[{datetime.now():%H:%M:%S}] ({function_name}) Loading PiCamera data for experiment {expID}')
 
     # Initialize data structure
     picam_list = find_picams(homedir, expID)

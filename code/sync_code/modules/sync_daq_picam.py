@@ -25,7 +25,7 @@ def synchronize_daq_picameras(datadir, expID, picam_dict, daq_dict, verbose=Fals
     sync_dict = initialize_sync_dict(datadir, expID, picam_dict, daq_dict, verbose)
 
     # Print sync summary stats
-    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PICAMERA-DAQ synchronization SUMMARY:\n')
+    print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) PiCamera-DAQ synchronization SUMMARY:\n')
 
     for picam_id in sync_dict['picam_list']:
         print(f'            {picam_id}-DAQ lag (sec): {sync_dict[picam_id]["lag_picam_sec"] - daq_dict["daq_timing"]["arduino_voltage_df"].iloc[0, 0]:.4f}')
@@ -46,7 +46,7 @@ def initialize_sync_dict(datadir, expID, picam_dict, daq_dict, verbose):
         'expID': expID,
         'sync_data_save_datetime': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'picam_list': [],
-        'PICAM_DAQ_sync_run': False
+        'PiCamera_DAQ_sync_run': False
     }
 
     arduino_voltage   = daq_dict['daq_timing']['arduino_voltage_df'].copy()
@@ -74,7 +74,7 @@ def initialize_sync_dict(datadir, expID, picam_dict, daq_dict, verbose):
         sync_dict[picam_id]['picam_LEDsignal_drft_corr']  = picam_LEDsignal_drft_corr
         sync_dict[picam_id]['picam_LED_blinks_drft_corr'] = picam_LED_blinks_drft_corr
         
-    sync_dict['PICAM_DAQ_sync_run'] = True
+    sync_dict['PiCamera_DAQ_sync_run'] = True
 
     return sync_dict
 

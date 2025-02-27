@@ -34,4 +34,3 @@
       command: python3 "/home/pi/Desktop/picam_sync_neuro/code/raspberry_pis/main.py" "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
       async: 10000
       poll: 0
-

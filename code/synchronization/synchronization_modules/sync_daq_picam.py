@@ -476,7 +476,7 @@ def plot_picam_daq_sync_data(datadir, expID, picam_dict, daq_dict, sync_dict, xm
     return
 
 
-def plot_picam_daq_sync_data(datadir, expID, picam_dict, daq_dict, sync_dict):
+def plot_picam_daq_sync_data2(datadir, expID, picam_dict, daq_dict, sync_dict):
     """
     Plots synchronized data from PiCameras and DAQ recordings.
 

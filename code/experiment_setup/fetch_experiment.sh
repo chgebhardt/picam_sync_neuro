@@ -15,6 +15,11 @@ mkdir -p "$DEST_BASE"
 # Configuration file
 CONFIG_FILE="$(dirname "$0")/../config/connections.ini"
 
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Error: connections.ini not found! Please create it from connections.ini.example."
+    exit 1
+fi
+
 # Prompt for user input
 echo -e "Experimenter (usually your initials): \c "
 read experimenter

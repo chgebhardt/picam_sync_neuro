@@ -1,0 +1,23 @@
+20250226_e01_pic2
+script_used:2025-02-26_11-20-19_2pis5.py
+experimenter:CG
+animalID:
+speciesID:
+sex:
+repro_state:
+pup_age_days:
+litter:
+exp_num:01
+camera_num:2
+view:top
+illumination:IR
+behavior_paradigm:
+photometry:yes
+viral_injection_date:
+virus_id:
+virus_target:
+video_duration_mins:1
+fps:40
+resolution_px:(1280, 720)
+shutterspeed_us:3000
+bitrate:7000000

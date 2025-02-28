@@ -123,7 +123,7 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
 ```
 
 
-📊 Data Processing & Synchronization (**in progress!!!**)
+📊 Data Processing & Synchronization
 
 - retrieve the recorded experiment folders from the Pis
   - start fetch_exp script specifying a local data directory (e.g. ~/Desktop/Behavior/) on the command line and follow the instructions:
@@ -159,9 +159,6 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
 - **Code** is licensed under the [MIT License](LICENSE).
 - **Documentation, images, and non-code materials** are licensed under [Creative Commons Attribution 4.0 (CC-BY 4.0)](LICENSE-docs).
 
-🤝 Contributing
-
-Pull requests and feature suggestions are welcome!.
 
 🔗 References & Acknowledgments
 

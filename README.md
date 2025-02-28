@@ -59,6 +59,13 @@ conda activate picam_sync_neuro
 2️⃣ Hardware Setup
 
 - Setup raspberry Pis as rpi1 and rpi2 and connect the respective PiCameras.
+- create 3 directories on each Pi:
+  ```
+  mkdir ~/Desktop/Behavior
+  mkdir ~/Desktop/logs
+  mkdir ~/Desktop/scripts
+  ```
+
 - Connect Raspberries rpi2>rpi1 via the Serial TTL-232 connection. Otherwise, I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
   

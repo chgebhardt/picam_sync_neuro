@@ -45,7 +45,7 @@ if __name__ == '__main__':
     camera_num_mapping = {'1': 'front', '2': 'top'}
 
     # Map values based on configuration
-    configuration_parameters['view']              = camera_num_mapping.get(camera_num[0], camera_num[0])
+    configuration_parameters['view'] = camera_num_mapping.get(camera_num[0], camera_num[0])
 
     # ==========================================================================
     # ACQUISITION PARAMETERS (HARDCODED)
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     # ==========================================================================
 
     # Create a log file (one per camera)
-    log_file = logging.create_log_file(f'/home/pi/Desktop/logs/pic{camera_num[0]}_log.out')
+    log_file = logging.create_log_file(f'/home/pi/Desktop/picam_sync_neuro/logs/pic{camera_num[0]}_log.out')
 
     # Check available disk space (script exits if too low)
     utils.disk_usage()

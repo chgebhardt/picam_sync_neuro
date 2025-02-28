@@ -44,6 +44,13 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# ignore the local connections.ini because it contains senstive IP information of your Pis
 code/config/connections.ini
+
+# Ignore Python cache files
+__pycache__/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
 
 # End of https://www.gitignore.io/api/linux,macos

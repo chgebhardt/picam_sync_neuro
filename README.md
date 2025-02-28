@@ -43,7 +43,7 @@ Required Hardware
 
 1️⃣ Software Installation
 
-Clone the repository to both Pis and the main computer (eg. your laptop or the workstation with the DAQ board):
+Clone the repository to both Pis and the main computer (eg. your laptop or the workstation with the DAQ board) in the ~/Desktop folder:
 
 ```
 cd ~/Desktop/
@@ -126,19 +126,19 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
 📊 Data Processing & Synchronization (**in progress!!!**)
 
 - retrieve the recorded experiment folders from the Pis
-  - start fetch_exp script specifying a local data directory on the command line and follow the instructions:
+  - start fetch_exp script specifying a local data directory (e.g. ~/Desktop/Behavior/) on the command line and follow the instructions:
     ```
-    ~/Desktop/picam_sync_neuro/code/experiment_setup/./fetch_exp.sh "/home/<username>/Desktop/picam_sync_neuro/testdata"
+    ~/Desktop/picam_sync_neuro/code/experiment_setup/./fetch_exp.sh "/home/<username>/Desktop/Behavior/"
     ```
    
 - setting up the experiment folders and generating files needed for synchronization:
-  - open jupyter notebook and start experiment_setup.ipynb, choose datadir (=folder to where fetch_experiment transferred the experiment files from the Pis), fps (frames per second) and the experiment identifier (yyyymmdd_e#)  
+  - open jupyter notebook in ~/Desktop/picam_sync_neuro/ and start experiment_setup.ipynb, choose datadir (=folder to where fetch_experiment transferred the experiment files from the Pis), fps=40 (frames per second) and the experiment identifier (yyyymmdd_e#)  
     *this script converts the h264 movies to mp4 (requires ffmpeg) and extracts the intensity values of the blinking LEDs per PiCamera to csv files*  
 
 - synchronization of the PiCameras and Neural Signal Recording Device
   - open synchronization_script.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  
   - this script loads the PiCamera data (frame timing and extracted LED intensity values / LED blink timing from all PiCameras) and saves them in a dictionary picam_dict
-  - accessing the LED voltage as seen by your neural signal recording device  might be different depending on your system:  
+  - accessing the LED voltage as seen by your neural signal recording device might be different depending on your system:  
     *Here I assume that you recorded the LED voltage at a certain sampling frequency to a csv file called daq_arduino_voltage.csv. This file contains two columns 'daq_time_sec' and 'voltage' and each row contains float64 values*  
   -
 

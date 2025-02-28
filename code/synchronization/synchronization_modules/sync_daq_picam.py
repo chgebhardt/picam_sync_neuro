@@ -472,7 +472,9 @@ def plot_picam_daq_sync_data(datadir, expID, picam_dict, daq_dict, sync_dict, xm
                     label = picam_id + ': on/off blinks, aligned & drift-corrected'
                    ); 
         axs.legend(fontsize=11, loc='upper right')
-        
+
+    #plt.savefig("sync0.png", dpi=300, bbox_inches="tight")  # Saves as a high-resolution PNG file
+
     return
 
 
@@ -495,6 +497,8 @@ def plot_picam_daq_sync_data2(datadir, expID, picam_dict, daq_dict, sync_dict):
     Returns:
     None: The function generates and displays the plots.
     """
+    import matplotlib.pyplot as plt
+    
     arduino_voltage    = daq_dict['daq_timing']['arduino_voltage_df']
     arduino2daq_edges  = daq_dict['daq_timing']['arduino2daq_edges_df']
     
@@ -504,27 +508,34 @@ def plot_picam_daq_sync_data2(datadir, expID, picam_dict, daq_dict, sync_dict):
     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(20,8), constrained_layout=True)
     fig.suptitle('Experiment ID: ' + expID, fontsize=20)
     
-    for idx, picam_id in enumerate(picam_list):
-        picam_LED_corr        = sync_dict[picam_id]['picam_LEDsignal_drft_corr']
-        picam_LED_blinks_corr = sync_dict[picam_id]['picam_LED_blinks_drft_corr']
-        
-        xlim1_min = picam_LED_corr['daq_time_sec'].iloc[0] - 10
-        xlim1_max = picam_LED_corr['daq_time_sec'].iloc[0] + 10
-        xlim2_min = picam_LED_corr['daq_time_sec'].iloc[-1] - 10
-        xlim2_max = picam_LED_corr['daq_time_sec'].iloc[-1] + 10
-        
-        for ax, xmin, xmax in zip(axs, [xlim1_min, xlim2_min], [xlim1_max, xlim2_max]):
-            ax.plot(arduino_voltage['daq_time_sec'], arduino_voltage['voltage'], linewidth=2, label='arduino LED voltage')
-            ax.plot(arduino2daq_edges['daq_time_sec'], arduino2daq_edges['edges'], 'ro', markersize=10, markerfacecolor='none', label='edge timestamps')
-            
-            ax.plot(picam_LED_corr['daq_time_sec'], picam_LED_corr['LED_ROI_avg'] + 3.5*idx+2.5, label=picam_id + ': normalized LED ROI average, aligned & drift corrected')
-            ax.plot(picam_LED_blinks_corr['daq_time_sec'], picam_LED_blinks_corr['blinks'] + 3.5*idx+2.5, 'k', markersize=8, marker=picam_blink_marker[idx], linestyle='', label=picam_id + ': on/off blinks, aligned & drift-corrected')
-            
-            ax.tick_params(axis='both', which='major', labelsize=15)
-            ax.set_xlim(xmin, xmax)
-            ax.set_ylim(-0.5, 11)
-            ax.set_xlabel('daq time in sec', fontsize=19)
-            ax.set_ylabel('normalized LED intensity and voltage in a.u.', fontsize=19)
-            ax.legend(fontsize=11, loc='upper right')
+    # Set time window limits for subplots
+    xlim1_min = sync_dict[picam_list[0]]['picam_LEDsignal_drft_corr']['daq_time_sec'].iloc[0] - 10
+    xlim1_max = sync_dict[picam_list[0]]['picam_LEDsignal_drft_corr']['daq_time_sec'].iloc[0] + 10
+    xlim2_min = sync_dict[picam_list[0]]['picam_LEDsignal_drft_corr']['daq_time_sec'].iloc[-1] - 10
+    xlim2_max = sync_dict[picam_list[0]]['picam_LEDsignal_drft_corr']['daq_time_sec'].iloc[-1] + 10
     
-    return
+    for ax, xmin, xmax in zip(axs, [xlim1_min, xlim2_min], [xlim1_max, xlim2_max]):
+        # Plot Arduino LED voltage and edges **once** per subplot
+        ax.plot(arduino_voltage['daq_time_sec'], arduino_voltage['voltage'], linewidth=2, label='arduino LED voltage')
+        ax.plot(arduino2daq_edges['daq_time_sec'], arduino2daq_edges['edges'], 'ro', markersize=10, markerfacecolor='none', label='edge timestamps')
+
+        for idx, picam_id in enumerate(picam_list):
+            picam_LED_corr        = sync_dict[picam_id]['picam_LEDsignal_drft_corr']
+            picam_LED_blinks_corr = sync_dict[picam_id]['picam_LED_blinks_drft_corr']
+
+            ax.plot(picam_LED_corr['daq_time_sec'], picam_LED_corr['LED_ROI_avg'] + 3.5*idx+2.5, 
+                    label=f"{picam_id}: normalized LED ROI average, aligned & drift corrected")
+            ax.plot(picam_LED_blinks_corr['daq_time_sec'], picam_LED_blinks_corr['blinks'] + 3.5*idx+2.5, 
+                    'k', markersize=8, marker=picam_blink_marker[idx], linestyle='', 
+                    label=f"{picam_id}: on/off blinks, aligned & drift-corrected")
+
+        ax.tick_params(axis='both', which='major', labelsize=15)
+        ax.set_xlim(xmin, xmax)
+        ax.set_ylim(-0.5, 11)
+        ax.set_xlabel('DAQ time in sec', fontsize=19)
+        ax.set_ylabel('Normalized LED intensity and voltage (a.u.)', fontsize=19)
+        ax.legend(fontsize=11, loc='upper right')
+
+    #plt.savefig("sync1.png", dpi=300, bbox_inches="tight")  # Saves as a high-resolution PNG file
+
+    plt.show()

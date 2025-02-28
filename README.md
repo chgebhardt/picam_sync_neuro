@@ -144,7 +144,8 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
      here I assume that you recorded the LED voltage at a certain sampling frequency to a csv file called daq_arduino_voltage.csv. This file should contain two columns 'daq_time_sec' and 'voltage' and each row contains float64 values*  
   - sync_daq_picam.synchronize_daq_picameras():  
     *This function synchronizes the PiCamera and the neural recording device based on the recorded LED intensity and LED voltage respectively.
-     First LED intensity and LED voltage traces are aligned using cross correlation, then closest pairs of voltage edges and LED blinks are identified and the time difference between edges and blinks thresholded at 30ms. This essentially removes blink/edge pairs that e.g. were occluded by objects moving in the PiCameras field of views. The final shift and drift was estimated by calculating a regression on the pairs of blinks/edges.*
+    First, the LED intensity from the video and the recorded LED voltage signals are aligned using cross-correlation. Then, the closest matching peaks in the voltage and video signals are identified, but only pairs that occur within 30ms of each other are kept. This helps filter out mismatches caused by obstructions in the camera’s view. Finally, the remaining matched points are used to estimate any remaining time shift or drift by fitting a regression line to them.*
+
 
 📜 License
 

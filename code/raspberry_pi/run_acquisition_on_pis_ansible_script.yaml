@@ -11,7 +11,7 @@
 
     - name: Copy config.yaml to Pis
       copy:
-        src: "{{ source_directory }}/config.yaml"
+        src: "{{ source_directory }}/picam_sync_neuro/code/raspberry_pi/config.yaml"
         dest: "{{ destination_directory }}/picam_sync_neuro//scripts/{{ timestamp }}_config.yaml"
       become: yes
 

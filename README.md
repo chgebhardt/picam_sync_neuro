@@ -9,14 +9,14 @@ Achieving this requires:
 - a serial connection between two Raspberry Pis.  
 
 - a randomly blinking LED driven by an ATMEGA328P microcontroller.  
-that
+
 - a DAQ board to record LED voltage and neural signals.  
 
-- Custom post-processing code to synchronize the Pi Cameras with the DAQ signals.  
+- Custom post-processing code to synchronize the PiCameras with the DAQ signals.  
 
 🚀 Features
 
-✅ Dual Pi Camera synchronization with millisecond precision  
+✅ Dual PiCamera synchronization with millisecond precision  
 ✅ Arduino-driven LED synchronization  
 ✅ DAQ board integration for neural signal alignment  
 ✅ Optional manual start of the recording scripts on the Raspberry Pis or automation via ansible   
@@ -26,7 +26,7 @@ that
 
 Required Hardware
 
-2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with [**NO-IR** Pi Camera modules](https://www.adafruit.com/product/3100) each  
+2× Raspberry Pi 3B+ v1.3 (32-bit Raspbian) with [**NO-IR** PiCamera modules](https://www.adafruit.com/product/3100) each  
 
 1× [FTDI Serial TTL-232 USB Cable](https://www.adafruit.com/product/70) and [female RS232-to-TTL converter](https://www.amazon.com/MAX3232-Connector-Converter-Equipment-Upgrades/dp/B07PFB4MHR?keywords=RS232+to+TTL+adapter&linkCode=ll2&linkId=068289c5d86a3fea3e85f853d1c90e97&psc=1&qid=1567698272&s=gateway&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTUxVTTJIUDJSTEJGJmVuY3J5cHRlZElkPUEwNTgzMzQ3M0NJRU1EUVRJMElVViZlbmNyeXB0ZWRBZElkPUEwNjQ1MTg5MUxQNFRXTVRFQ0RHTSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU%3D&sr=8-1-spons)
 
@@ -58,7 +58,7 @@ conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 
-- Setup raspberry Pis as rpi1 and rpi2 and connect the respective Pi Cameras.
+- Setup raspberry Pis as rpi1 and rpi2 and connect the respective PiCameras.
 - Connect Raspberries rpi2>rpi1 via the Serial TTL-232 connection. Otherwise, I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
   
@@ -76,14 +76,14 @@ conda activate picam_sync_neuro
 </p>
 
 - (Optional: Solder the LED circuit and BNC permanently to a breadboard)  
-  *Be careful, you wont be able to see the 940nm LED blinking unless you image the LED with the NOIR Pi Cameras. A voltmeter and/or Oscilloscope might come in handy too.*
+  *Be careful, you won't be able to see the 940nm LED blinking unless you image the LED with the NOIR PiCameras. A voltmeter and/or Oscilloscope might come in handy too.*
 
 - Finally, place the breadboard such that the LED can be imaged with both Pi Cameras. 
 
 3️⃣ Video Recording on both Pis:
 
 - VNC into both Pis
-- run [camera_preview.py](https://github.com/chgebhardt/picam_sync_neuro/blob/main/code/raspberry_pis/camera_preview.py) from within Thonny or a python editor of choice. You should be able to see the blinking LED.
+- run [camera_preview.py](https://github.com/chgebhardt/picam_sync_neuro/blob/main/code/raspberry_pis/camera_preview.py) from within Thonny or a python editor of choice. You should be able to see the blinking LED. Stop the recording.
 - open a terminal in each Pi
 - then modify the config.yaml according your needs (has to be the same on both Pis):
   ```
@@ -94,45 +94,40 @@ conda activate picam_sync_neuro
   ```
   python3 main.py config.yaml 
   ```
-(optional: Install a scheduler on your main computer e.g. ansible)
+- recording should start on both Pis
+
+(optional: Install a scheduler on your main computer e.g. ansible, to start the Pis at the same time from your main computer)
 ```
 sudo apt get update
 sudo apt get install ansible
 ```
-(optional: Set up an inventory.ini file containing the IP addresses and ports to connect to your Pis on your main computer)
+(optional: Set up an connections.ini file containing the IP addresses and ports to connect to your Pis on your main computer. To set it up, copy the example file and edit it:)
 ```
-nano inventory.ini
+cd ~/Desktop/picam_sync_neuro/code/config 
+cp connections.ini.example connections.ini
+nano connections.ini
 ```
 (optional: Modify the config.yaml on the main computer)
 ```
-nano config.yaml
+nano ~/Desktop/picam_sync_neuro/code/raspberry_pi/config.yaml
 ```
 (optional: Start the ansible-playbook on the main computer. This takes care of the transfer of the config.yaml to both Pis as well as script timing.)
 ```
-cd code/host_ansible_scheduler
-ansible-playbook -i inventory.ini run_pi_behavior_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pis"
+cd ~/Desktop/picam_sync_neuro/code/ansible
+ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_pi_behavior_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pi"
 ```
 
 
 📊 Data Processing & Synchronization (**in progress!!!**)
 
 - retrieve the recorded experiment folders from the Pis
-  - edit connections.ini such that it contains the IP addresses and ports of the Pis, e.g.:
-    ```
-    cd picam_sync_neuro/code/create_project/
-    nano connections.ini
-
-    add something like this to connections.ini:  
-    rpi1: 192.168.1.100:222
-    rpi2: 192.168.1.101:222
-    ```   
   - start fetch_exp script specifying a local data directory on the command line and follow the instructions:
     ```
-    ./fetch_exp.sh "/home/<username>/Desktop/picam_sync_neuro/tests"
+    ~/Desktop/picam_sync_neuro/code/experiment_setup/./fetch_exp.sh "/home/<username>/Desktop/picam_sync_neuro/testdata"
     ```
    
 - project initiation:
-  - open jupyter notebook and start project_initiation.ipynb, choose datadir (=folder to where fetch_exp transferred the experiment files from the Pis), fps (frames per second) and the experiment identifier (yyyymmdd_e#)  
+  - open jupyter notebook and start experiment_setup.ipynb, choose datadir (=folder to where fetch_experiment transferred the experiment files from the Pis), fps (frames per second) and the experiment identifier (yyyymmdd_e#)  
     *this script converts the h264 movies to mp4 (requires ffmpeg) and extracts the intensity values of the blinking LEDs per PiCamera to csv files (needed for synchronization)*  
 
 - open analysis_pipeline.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  

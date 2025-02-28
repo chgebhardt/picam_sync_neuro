@@ -119,7 +119,7 @@ nano ~/Desktop/picam_sync_neuro/code/raspberry_pi/config.yaml
 (optional: Start the ansible-playbook on the main computer. This takes care of the transfer of the config.yaml to both Pis as well as script timing.)
 ```
 cd ~/Desktop/picam_sync_neuro/code/ansible
-ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_acquisition_on_pis_ansible_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pi/ destination_directory=/home/pi/Desktop/"
+ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_acquisition_on_pis_ansible_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/ destination_directory=/home/pi/Desktop/"
 ```
 
 

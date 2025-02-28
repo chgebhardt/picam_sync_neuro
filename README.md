@@ -138,11 +138,13 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
 - synchronization of the PiCameras and Neural Signal Recording Device
   - open synchronization_script.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  
   - picam_data_loader.load_picam_data():  
-    *This function loads the PiCamera data (frame timing and extracted LED intensity values / LED blink timing from all PiCameras) and saves them in a dictionary picam_dict*
+    *This function loads the PiCamera data (frame timing and extracted LED intensity values as well as LED onset and offset timing from all PiCameras) and saves them in a dictionary picam_dict*
   - daq_data_loader.load_daq_data():  
     *This function loads the LED voltage as recorded by your neural signal recording device. This might be different depending on your system but
      here I assume that you recorded the LED voltage at a certain sampling frequency to a csv file called daq_arduino_voltage.csv. This file should contain two columns 'daq_time_sec' and 'voltage' and each row contains float64 values*  
-  - 
+  - sync_daq_picam.synchronize_daq_picameras():
+    *This function synchronizes the PiCamera and the neural recording device based on the recorded LED intensity and LED voltage respectively.
+     First LED intensity and LED voltage traces are aligned using cross correlation, then closest pairs of voltage edges and LED blinks were identified an the time difference thresholded at 30ms. This essentially removes blink/edge pairs that e.g. were occluded by objects moving in the PiCameras field of views. The final shift and drift was estimated by calculating a regression on the pairs of blinks/edges.
 
 📜 License
 

@@ -147,10 +147,10 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
     First, the LED intensity from the video and the recorded LED voltage signals are aligned using cross-correlation. Then, the closest matching peaks in the voltage and video signals are identified, but only pairs that occur within 30ms of each other are kept. This helps filter out mismatches caused by obstructions in the camera’s view. Finally, the remaining matched points are used to estimate any remaining time shift or drift by fitting a regression line to them.*
 
 <p align="center">
-  <img src="images/sync0.png" alt="synchronization" width="600">
+  <img src="images/sync0.png" alt="synchronization" width="700">
 </p>
 <p align="center">
-  <img src="images/sync1.png" alt="synchronization" width="600">
+  <img src="images/sync1.png" alt="synchronization" width="700">
 </p>
 
 

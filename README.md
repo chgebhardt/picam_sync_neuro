@@ -106,7 +106,7 @@ conda activate picam_sync_neuro
 sudo apt get update
 sudo apt get install ansible
 ```
-(optional: Set up an connections.ini file containing the IP addresses and ports to connect to your Pis on your main computer. To set it up, copy the example file and edit it:)
+(optional: Set up an connections.ini file containing the IP addresses and ports to connect to your Pis on your main computer. To set it up, copy the example file and edit it with your Pi IPs and Ports that u use)
 ```
 cd ~/Desktop/picam_sync_neuro/code/config 
 cp connections.ini.example connections.ini
@@ -119,7 +119,7 @@ nano ~/Desktop/picam_sync_neuro/code/raspberry_pi/config.yaml
 (optional: Start the ansible-playbook on the main computer. This takes care of the transfer of the config.yaml to both Pis as well as script timing.)
 ```
 cd ~/Desktop/picam_sync_neuro/code/ansible
-ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_pi_behavior_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pi"
+ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_acquisition_on_pis_ansible_script.yaml --ask-become-pass -e "source_directory=/home/<username>/Desktop/picam_sync_neuro/code/raspberry_pi/ destination_directory=/home/pi/Desktop/"
 ```
 
 
@@ -149,8 +149,8 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_p
 
 🤝 Contributing
 
-Pull requests and feature suggestions are welcome! See CONTRIBUTING.md for guidelines.
+Pull requests and feature suggestions are welcome!.
 
 🔗 References & Acknowledgments
 
-This project was inspired by various open-source tutorials and resources. See ACKNOWLEDGMENTS.md for full credits.
+This project was inspired by various open-source tutorials and resources. They are acknowledged via the links to See ACKNOWLEDGMENTS.md for full credits.

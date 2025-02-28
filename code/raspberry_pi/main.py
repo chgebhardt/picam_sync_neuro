@@ -43,14 +43,9 @@ if __name__ == '__main__':
 
     # Define mappings for camera view and behavioral paradigms
     camera_num_mapping = {'1': 'front', '2': 'top'}
-    beh_paradigm_mapping = {'pr': 'pup_retrieval', 'rm': 'retrieval_motivation'}
 
     # Map values based on configuration
     configuration_parameters['view']              = camera_num_mapping.get(camera_num[0], camera_num[0])
-    configuration_parameters['behavior_paradigm'] = beh_paradigm_mapping.get(
-        configuration_parameters['beh_paradigm_id'], 
-        configuration_parameters['beh_paradigm_id']
-    )
 
     # ==========================================================================
     # ACQUISITION PARAMETERS (HARDCODED)

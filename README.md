@@ -130,11 +130,11 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_p
   - open jupyter notebook and start experiment_setup.ipynb, choose datadir (=folder to where fetch_experiment transferred the experiment files from the Pis), fps (frames per second) and the experiment identifier (yyyymmdd_e#)  
     *this script converts the h264 movies to mp4 (requires ffmpeg) and extracts the intensity values of the blinking LEDs per PiCamera to csv files (needed for synchronization)*  
 
-- open analysis_pipeline.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  
-  - this script loads the PiCamera data (frame timing and extracted LED intensity values / LED blink timing from all Picameras) and saves them in a dictionary picam_dict
+- open synchronization_script.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  
+  - this script loads the PiCamera data (frame timing and extracted LED intensity values / LED blink timing from all PiCameras) and saves them in a dictionary picam_dict
   - accessing the LED voltage as seen by the DAQ might be different depending on your system:  
-    *Here I assume that you saved the LED voltage in a csv file called daq_arduino_voltage.csv. This file contains two columns 'daq_time_sec' and 'voltage' and each row contains float128 values*
-  -  
+    *Here I assume that you recorded the LED voltage at a certain sampling frequency to a csv file called daq_arduino_voltage.csv. This file contains two columns 'daq_time_sec' and 'voltage' and each row contains float64 values*  
+  -
 
 📜 License
 

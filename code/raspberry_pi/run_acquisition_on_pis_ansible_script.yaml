@@ -2,6 +2,8 @@
 - hosts: all
   vars:
     source_directory: "{{ source_directory }}"
+    destination_directory: "{{ destination_directory }}"  # This will be provided via the CLI
+
   tasks:
     - name: Set timestamp fact
       set_fact:
@@ -9,8 +11,8 @@
 
     - name: Copy config.yaml to Pis
       copy:
-        src:  "{{ source_directory }}/config.yaml"
-        dest: "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
+        src: "{{ source_directory }}/config.yaml"
+        dest: "{{ destination_directory }}picam_sync_neuro//scripts/{{ timestamp }}_config.yaml"
       become: yes
 
 - hosts: rpi1
@@ -20,10 +22,10 @@
         msg: "main.py initiated at {{ ansible_date_time.date }} {{ ansible_date_time.time }}"
 
     - name: Start main.py on rpi1
-      command: python3 "/home/pi/Desktop/picam_sync_neuro/code/raspberry_pi/main.py" "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
+      command: python3 "{{ destination_directory }}/picam_sync_neuro/code/raspberry_pi/main.py" "{{ destination_directory }}/scripts/{{ timestamp }}_config.yaml"
       async: 10000
       poll: 0
-      
+
 - hosts: rpi2
   tasks:
     - name: Print the time when main.py is initiated
@@ -31,6 +33,7 @@
         msg: "main.py initiated at {{ ansible_date_time.date }} {{ ansible_date_time.time }}"
 
     - name: Start main.py on rpi2 
-      command: python3 "/home/pi/Desktop/picam_sync_neuro/code/raspberry_pi/main.py" "/home/pi/Desktop/scripts/{{ timestamp }}_config.yaml"
+      command: python3 "{{ destination_directory }}/picam_sync_neuro/code/raspberry_pi/main.py" "{{ destination_directory }}/scripts/{{ timestamp }}_config.yaml"
       async: 10000
       poll: 0
+

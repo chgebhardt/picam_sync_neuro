@@ -5,7 +5,7 @@ import re
 import socket
 import datetime as dt
 
-from picam_acquisition_modules import config, logging, experiment_manager, serial_pi_comm, utils
+from acquisition_modules import config, logging, experiment_manager, serial_pi_comm, utils
 
 if __name__ == '__main__':
     """

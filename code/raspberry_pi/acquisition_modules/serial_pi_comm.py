@@ -1,4 +1,4 @@
-from picam_acquisition_modules import camera_acquisition, utils
+from acquisition_modules import camera_acquisition, utils
 import serial
 
 class Serializer:

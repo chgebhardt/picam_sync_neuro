@@ -1,7 +1,7 @@
 import datetime as dt
 from pathlib import Path
 import sys
-from picam_acquisition_modules import config
+from acquisition_modules import config
 
 def create_experiment_folder(configuration_parameters):
     """

@@ -135,7 +135,7 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
   - open jupyter notebook in ~/Desktop/picam_sync_neuro/ and start experiment_setup.ipynb, choose datadir (=folder to where fetch_experiment transferred the experiment files from the Pis), fps=40 (frames per second) and the experiment identifier (yyyymmdd_e#)  
     *this script converts the h264 movies to mp4 (requires ffmpeg) and extracts the intensity values of the blinking LEDs per PiCamera to csv files*  
 
-- synchronization of the PiCameras and Neural Signal Recording Device
+- synchronization of the PiCameras and Neural Signal Recording Device  
   - open synchronization_script.ipynb, choose datadir and experiment identifier (yyyymmdd_e#)  
   - picam_data_loader.load_picam_data():  
     *This function loads the PiCamera data (frame timing and extracted LED intensity values as well as LED onset and offset timing from all PiCameras) and saves them in a dictionary picam_dict*
@@ -143,7 +143,7 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
     *This function loads the LED voltage as recorded by your neural signal recording device. This might be different depending on your system but
      here I assume that you recorded the LED voltage at a certain sampling frequency to a csv file called daq_arduino_voltage.csv. This file should contain two columns 'daq_time_sec' and 'voltage' and each row contains float64 values*  
   - sync_daq_picam.synchronize_daq_picameras():  
-    *This function synchronizes the PiCamera and the neural recording device based on the recorded LED intensity and LED voltage respectively.
+    *This function synchronizes the PiCamera and the neural recording device based on the recorded LED intensity (blinks on and off) and LED voltage (edges up or down)  respectively.
     First, the LED intensity from the video and the recorded LED voltage signals are aligned using cross-correlation. Then, the closest matching peaks in the voltage and video signals are identified, but only pairs that occur within 30ms of each other are kept. This helps filter out mismatches caused by obstructions in the camera’s view. Finally, the remaining matched points are used to estimate any remaining time shift or drift by fitting a regression line to them.*
   - Finally, you can find the shift and drift corrected timestamps for each PiCamera frame in DAQ time under sync_dict[picam]['picam_LEDsignal_drft_corr'] with picam= 'pic1' or picam='pic2'  
 

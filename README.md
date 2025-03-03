@@ -145,6 +145,7 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
   - sync_daq_picam.synchronize_daq_picameras():  
     *This function synchronizes the PiCamera and the neural recording device based on the recorded LED intensity and LED voltage respectively.
     First, the LED intensity from the video and the recorded LED voltage signals are aligned using cross-correlation. Then, the closest matching peaks in the voltage and video signals are identified, but only pairs that occur within 30ms of each other are kept. This helps filter out mismatches caused by obstructions in the camera’s view. Finally, the remaining matched points are used to estimate any remaining time shift or drift by fitting a regression line to them.*
+  - Finally, you can find the shift and drift corrected timestamps for each PiCamera frame in DAQ time under sync_dict[picam]['picam_LEDsignal_drft_corr'] with picam= 'pic1' or picam='pic2'  
 
 <p align="center">
   <img src="images/sync0.png" alt="synchronization" width="700">

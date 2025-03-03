@@ -163,4 +163,4 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
 
 🔗 References & Acknowledgments
 
-This project was inspired by various open-source tutorials and resources. They are acknowledged via the links to See ACKNOWLEDGMENTS.md for full credits.
+This project was inspired by various open-source tutorials and resources. They are acknowledged via the links in the README.

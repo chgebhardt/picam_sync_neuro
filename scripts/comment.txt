@@ -1,0 +1,1 @@
+This folder is empty in the repo but it is used on the Pis as destination folder for the config.yaml files sent via ansible from the main computer. 

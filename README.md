@@ -34,7 +34,7 @@ Required Hardware
 
 1x [ATMEGA328P microcontroller kit](https://www.amazon.com/ATMEGA328P-PU-Without-Ar-BOOTLOADER-Socket-Crystal/dp/B07Q3F1D9Z?crid=1RZL4OTYPLHH1&dchild=1&keywords=atmega328p-pu&qid=1619732452&sprefix=ATMega328P%25252Caps%25252C166&sr=8-13), [breadboard](https://www.adafruit.com/product/1609)
 
-1x [940nm Infrared LED](https://www.amazon.com/Adafruit-Super-bright-5mm-pack-ADA388/dp/B00ULB0U44) invisible to humans (!) and mice + wires
+1x [940nm Infrared LED](https://www.amazon.com/Adafruit-Super-bright-5mm-pack-ADA388/dp/B00ULB0U44) invisible to humans (!) and also mice, wires
 
 1× DAQ Board (e.g., in a Fiber Photometry or Open-Ephys rig) for voltage and neural signal recording
 

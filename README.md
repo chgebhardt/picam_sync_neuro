@@ -59,12 +59,12 @@ conda activate picam_sync_neuro
 2️⃣ Hardware Setup
 
 - Setup raspberry Pis with hostnames **rpi1** and **rpi2** and connect the respective PiCameras.
-- create the Behavior folder where the experiments on each Pi are stored:
+- open a terminal on each Pi and create the Behavior folder where the experiments will be stored:
   ```
   mkdir ~/Desktop/Behavior
     ```
 
-- Connect Raspberries rpi2>rpi1 via the Serial TTL-232 connection. Otherwise, I basically followed 
+- Connect Raspberries **rpi2 > rpi1** via the Serial TTL-232 connection. Otherwise, I basically followed 
 [this](https://practicingelectronics.wordpress.com/2018/04/22/serial-port-for-a-raspberry-pi-using-a-usb-to-serial-adapter/).
   
 - Set up an [Arduino as ISP](https://www.notesandvolts.com/2013/01/fun-with-arduino-arduino-as-isp.html) and copy the [arduino script for a blinking LED](https://github.com/chgebhardt/picam_sync_neuro/tree/main/code/arduino) on the ATMEGA328P microcontroller.
@@ -81,9 +81,9 @@ conda activate picam_sync_neuro
 </p>
 
 - (Optional: Solder the LED circuit and BNC permanently to a breadboard)  
-  *Be careful, you won't be able to see the 940nm LED blinking unless you image the LED with the NOIR PiCameras. A voltmeter and/or Oscilloscope might come in handy too.*
+  *Be careful, you won't be able to see the 940nm LED blinking unless you image the LED with the NOIR PiCameras. A voltmeter and/or Oscilloscope might come in handy in this process.*
 
-- Finally, place the breadboard such that the LED can be imaged with both Pi Cameras. 
+- Finally, place the breadboard such that the LED can be seen and imaged with both PiCameras. 
 
 3️⃣ Video Recording on both Pis:
 
@@ -99,7 +99,7 @@ conda activate picam_sync_neuro
   ```
   python3 main.py config.yaml 
   ```
-- recording should start on both Pis
+- recording should start on both Pis and if camera_preview is True you should see a preview window popping up  
 
 (optional: Install a scheduler on your main computer e.g. ansible, to start the Pis at the same time from your main computer)
 ```

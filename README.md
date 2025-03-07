@@ -43,7 +43,7 @@ Required Hardware
 
 1️⃣ Software Installation
 
-Clone the repository to both Pis and the main computer (eg. your laptop or the workstation with the DAQ board) in the ~/Desktop folder:
+Clone the repository to both Pis and the main computer (eg. your laptop or the workstation with the DAQ board) e.g. in the ~/Desktop folder:
 
 ```
 cd ~/Desktop/
@@ -58,7 +58,7 @@ conda activate picam_sync_neuro
 
 2️⃣ Hardware Setup
 
-- Setup raspberry Pis as rpi1 and rpi2 and connect the respective PiCameras.
+- Setup raspberry Pis with hostnames **rpi1** and **rpi2** and connect the respective PiCameras.
 - create the Behavior folder where the experiments on each Pi are stored:
   ```
   mkdir ~/Desktop/Behavior

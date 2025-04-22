@@ -131,7 +131,7 @@ ansible-playbook -i ~/Desktop/picam_sync_neuro/code/config/connections.ini run_a
     ~/Desktop/picam_sync_neuro/code/experiment_setup/./fetch_experiment.sh "/home/<username>/Desktop/Behavior/"
     ```
    
-- setting up the experiment folders and generating files needed for synchronization:
+- (1) setting up the experiment folders and (2) generating files needed for synchronization:
   - open jupyter notebook in ~/Desktop/picam_sync_neuro/ and start experiment_setup.ipynb, choose datadir (=folder to where fetch_experiment transferred the experiment files from the Pis), fps=40 (frames per second) and the experiment identifier (yyyymmdd_e#)  
     *this script converts the h264 movies to mp4 (requires ffmpeg) and extracts the intensity values of the blinking LEDs per PiCamera to csv files*  
 

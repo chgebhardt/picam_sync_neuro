@@ -1,0 +1,26 @@
+name: picam_sync_neuro
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - seaborn
+  - opencv=4.7.0  # Specify the version (or remove for latest)
+  - ffmpeg
+  - imageio
+  - imagecodecs
+  - pillow
+  - scikit-learn
+  - jupyter
+  - jupyterlab
+  - notebook
+  - ipykernel
+  - ipywidgets
+  - pyqt
+  - pip:
+      - napari[all]

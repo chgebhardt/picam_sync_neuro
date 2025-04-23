@@ -55,6 +55,8 @@ cd picam_sync_neuro
 conda env create -f python_dependencies_reqs.yml
 conda activate picam_sync_neuro
 ```
+(NOTE: There seemed to be an issue with the yml file when trying to install the environment from conda under Windows instead of Linux/Mac. Please use the modified yml file python_dependencies_reqs_windows.yml instead)
+
 
 2️⃣ Hardware Setup
 

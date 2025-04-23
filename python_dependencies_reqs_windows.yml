@@ -10,7 +10,7 @@ dependencies:
   - scipy
   - matplotlib
   - seaborn
-  - opencv=4.7.0  # Specify the version (or remove for latest)
+  - opencv=4.7.0
   - ffmpeg
   - imageio
   - imagecodecs

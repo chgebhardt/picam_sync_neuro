@@ -47,7 +47,8 @@ def load_daq_data(folder_path, expID, daq_frequency):
         daq_dict['daq_timing']['arduino_voltage_df'] = arduino_voltage_df
 
         print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) Loaded: {voltage_file}')
-        
+
+        print(f'\n[{datetime.now():%H:%M:%S}] ({function_name}) Searching for rising and falling edges of the daq_arduino_voltage signal...')
         daq_dict['daq_timing']['arduino2daq_edges_df'] = find_arduino_edges(arduino_voltage_df, daq_frequency)
         
     else:
